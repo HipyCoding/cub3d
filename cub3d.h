@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:49 by candrese          #+#    #+#             */
-/*   Updated: 2025/02/19 13:41:40 by candrese         ###   ########.fr       */
+/*   Updated: 2025/02/19 14:20:06 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ typedef struct s_cub3d
 	mlx_image_t		*img;
 	int				x;
 	int				y;
+	int				line_pos;
+	int				direction;
+	int				line_length;
 	int				r;
 	int				g;
 	int				b;

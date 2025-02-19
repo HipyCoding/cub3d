@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:46 by candrese          #+#    #+#             */
-/*   Updated: 2025/02/19 14:02:15 by candrese         ###   ########.fr       */
+/*   Updated: 2025/02/19 14:23:23 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void	init_to_winit(t_cub3d *c)
 {
 	c->x = 0;
 	c->y = 0;
-
+	c->line_pos = 100;
+	c->direction = 1;
+	c->line_length = 200;   
 	c->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
 	c->img = mlx_new_image(c->mlx, WIDTH, HEIGHT);
 	if (!c->mlx || !c->img)
