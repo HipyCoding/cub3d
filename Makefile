@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: candrese <candrese@student.42.fr>          +#+  +:+       +#+         #
+#    By: christian <christian@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:15:17 by candrese          #+#    #+#              #
-#    Updated: 2025/02/19 13:46:23 by candrese         ###   ########.fr        #
+#    Updated: 2025/02/20 21:43:42 by christian        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 MLX_DIR = MLX42
 MLX_BUILD = mlx_build
 MLX = $(MLX_BUILD)/libmlx42.a
-MLX_FLAGS = -lmlx42 -Iinclude -lglfw -framework Cocoa -framework OpenGL -framework IOKit
+MLX_FLAGS = -lmlx42 -Iinclude -L/opt/homebrew/lib -lglfw -framework Cocoa -framework OpenGL -framework IOKit
 
 all: $(NAME)
 
@@ -43,7 +43,7 @@ $(MLX):
 	@cd $(MLX_DIR) && cmake -B ../$(MLX_BUILD) && cmake --build ../$(MLX_BUILD)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
-	$(CC) $(OBJS) $(CFLAGS) -L$(LIBFT_DIR) -lft -L$(MLX_BUILD) -lmlx42 $(MLX_FLAGS) -o $(NAME)
+	$(CC) $(OBJS) $(CFLAGS) -L$(LIBFT_DIR) -lft -L$(MLX_BUILD) $(MLX_FLAGS) -o $(NAME)
 
 clean:
 	@rm -rf $(OBJ_DIR)

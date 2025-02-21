@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:49 by candrese          #+#    #+#             */
-/*   Updated: 2025/02/19 14:20:06 by candrese         ###   ########.fr       */
+/*   Updated: 2025/02/21 08:43:08 by christian        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 #  define WIDTH 1000
 # endif
 
+# define RED 0xFF0000FF
+
 typedef struct s_cub3d
 {
 	mlx_t			*mlx;
@@ -42,6 +44,7 @@ typedef struct s_cub3d
 	int				b;
 }	t_cub3d;
 
-void put_cub3d(t_cub3d *c);
+void	put_cub3d(t_cub3d *c);
+void	draw_line(t_cub3d *c, int x1, int y1, int x2, int y2, uint32_t color);
 
 #endif
