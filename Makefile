@@ -3,56 +3,73 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: christian <christian@student.42.fr>        +#+  +:+       +#+         #
+#    By: candrese <candrese@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:15:17 by candrese          #+#    #+#              #
-#    Updated: 2025/02/20 21:43:42 by christian        ###   ########.fr        #
+#    Updated: 2025/02/21 19:31:07 by candrese         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address
-SRCS = main.c animations.c
+
+INCLUDES_DIR = includes
 OBJ_DIR = bin
-OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
-LIBFT_DIR = libft
+
+INCLUDES = -I.
+
+SRCS = main.c \
+	execution/animations.c
+
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+LIBFT_DIR = $(INCLUDES_DIR)/libft
 LIBFT = $(LIBFT_DIR)/libft.a
-MLX_DIR = MLX42
-MLX_BUILD = mlx_build
+
+MLX_DIR = $(INCLUDES_DIR)/MLX42
+MLX_BUILD = $(INCLUDES_DIR)/mlx_build
 MLX = $(MLX_BUILD)/libmlx42.a
-MLX_FLAGS = -lmlx42 -Iinclude -L/opt/homebrew/lib -lglfw -framework Cocoa -framework OpenGL -framework IOKit
+
+FRAMEWORKS = -framework Cocoa -framework OpenGL -framework IOKit
 
 all: $(NAME)
 
 $(OBJ_DIR)/%.o: %.c
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-$(LIBFT):
+$(INCLUDES_DIR):
+	@mkdir -p $(INCLUDES_DIR)
+
+$(LIBFT): | $(INCLUDES_DIR)
 	@if [ ! -d "$(LIBFT_DIR)" ]; then \
 		git clone $(LIBFT_REPO) $(LIBFT_DIR); \
 	fi
 	@make -C $(LIBFT_DIR)
 
-$(MLX):
+$(MLX): | $(INCLUDES_DIR)
 	@if [ ! -d "$(MLX_DIR)" ]; then \
-		git clone https://github.com/codam-coding-college/MLX42.git; \
+		git clone https://github.com/codam-coding-college/MLX42.git $(MLX_DIR); \
 	fi
 	@mkdir -p $(MLX_BUILD)
-	@cd $(MLX_DIR) && cmake -B ../$(MLX_BUILD) && cmake --build ../$(MLX_BUILD)
+	@cd $(MLX_DIR) && cmake -B ../mlx_build && cmake --build ../mlx_build -j4
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
-	$(CC) $(OBJS) $(CFLAGS) -L$(LIBFT_DIR) -lft -L$(MLX_BUILD) $(MLX_FLAGS) -o $(NAME)
+	$(CC) $(OBJS) $(CFLAGS) -L$(LIBFT_DIR) -lft -L$(MLX_BUILD) -lmlx42 -lglfw $(FRAMEWORKS) -o $(NAME)
 
 clean:
 	@rm -rf $(OBJ_DIR)
-	@rm -rf $(MLX_BUILD)
-	@make -C $(LIBFT_DIR) clean
+	@if [ -d "$(LIBFT_DIR)" ]; then \
+		make -C $(LIBFT_DIR) clean; \
+	fi
 
 fclean: clean
 	@rm -f $(NAME)
-	@make -C $(LIBFT_DIR) fclean
+	@rm -rf $(MLX_BUILD)
+	@if [ -d "$(LIBFT_DIR)" ]; then \
+		make -C $(LIBFT_DIR) fclean; \
+	fi
 	@rm -rf $(MLX_DIR)
 
 re: fclean all

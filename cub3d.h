@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
+/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:49 by candrese          #+#    #+#             */
-/*   Updated: 2025/02/21 08:43:08 by christian        ###   ########.fr       */
+/*   Updated: 2025/02/21 19:20:07 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <math.h>
-# include "MLX42/include/MLX42/MLX42.h"
-# include "libft/libft.h"
+# include "includes/MLX42/include/MLX42/MLX42.h"
+# include "includes/libft/libft.h"
 
 # ifndef HEIGHT
 #  define HEIGHT 1000
