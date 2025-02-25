@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:46 by candrese          #+#    #+#             */
-/*   Updated: 2025/02/19 14:23:23 by candrese         ###   ########.fr       */
+/*   Updated: 2025/02/25 02:08:15 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ int	main()
 	// 	return (EXIT_FAILURE);
 	// }
 	init_to_winit(&c);
-	put_cub3d(&c);
 	// mlx_key_hook(c.mlx, &key_hook, &c);
+	// ptrototype: mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param)
+	mlx_loop_hook(c.mlx, &main_loop, &c);
 	mlx_loop(c.mlx);
 	// Clean up
 	mlx_terminate(c.mlx);

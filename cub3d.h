@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:49 by candrese          #+#    #+#             */
-/*   Updated: 2025/02/21 19:20:07 by candrese         ###   ########.fr       */
+/*   Updated: 2025/02/25 02:10:42 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,19 @@ typedef struct s_cub3d
 	int				g;
 	int				b;
 }	t_cub3d;
+
+typedef struct s_pov
+{
+	int		x;
+	int		y;
+
+}	t_pov;
+
+void	clean_exit(t_cub3d *c);
+
+void	key_input(t_cub3d *c);
+
+void	main_loop(void *param);
 
 void	put_cub3d(t_cub3d *c);
 void	draw_line(t_cub3d *c, int x1, int y1, int x2, int y2, uint32_t color);

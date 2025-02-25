@@ -6,7 +6,7 @@
 #    By: candrese <candrese@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:15:17 by candrese          #+#    #+#              #
-#    Updated: 2025/02/21 19:31:07 by candrese         ###   ########.fr        #
+#    Updated: 2025/02/25 02:11:49 by candrese         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,10 @@ OBJ_DIR = bin
 INCLUDES = -I.
 
 SRCS = main.c \
-	execution/animations.c
+	execution/animations.c \
+	execution/clean.c \
+	execution/controls.c \
+	execution/execution.c
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
