@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:32:15 by candrese          #+#    #+#             */
-/*   Updated: 2025/02/25 09:35:55 by candrese         ###   ########.fr       */
+/*   Updated: 2025/02/27 07:10:19 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,48 @@ void	calculate_ray_direction(t_cub3d *c, int x, double *ray_dir_x, double *ray_d
 	double	camera_x;
 
 	camera_x = 2.0 * x / WIDTH - 1.0;
-	*ray_dir_x = c->dir_x + c->plane_x * camera_x;
-	*ray_dir_y = c->dir_y + c->plane_y * camera_x;
+	*ray_dir_x = c->player.dir_x + c->player.plane_x * camera_x;
+	*ray_dir_y = c->player.dir_y + c->player.plane_y * camera_x;
 }
 
-// builds 2d map for testing purpusos
+
+void	draw_rays(t_cub3d *c, int square_size)
+{
+	int	x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	wall_dist;
+	int		side;
+	double	wall_x;
+	double	wall_y;
+	
+	x = 0;
+	while (x < WIDTH)
+	{
+		calculate_ray_direction(c, x, &ray_dir_x, &ray_dir_y);
+		wall_dist = perform_dda(c, ray_dir_x, ray_dir_y, &side);
+		// wall hit position
+		wall_x = c->player.pos_x + ray_dir_x * wall_dist;
+		wall_y = c->player.pos_y + ray_dir_y * wall_dist;
+
+		// ray from player position
+		draw_line(c, c->player.pos_x * square_size, c->player.pos_y * square_size,
+			wall_x * square_size, wall_y * square_size,
+			0x00FF00FF); // green for rays
+		x += WIDTH / 10;
+	}
+	// direction vector
+	draw_line(c, c->player.pos_x * square_size, c->player.pos_y * square_size,
+		ray_dir_x * square_size, ray_dir_y * square_size, 0x0000FFFF); // blue for direction
+}
+
+
+// builds 2d map for testing purpusos and casts rays from player onto FOV
 void	draw_minimap(t_cub3d *c)
 {
 	int		i;
 	int		j;
 	int		square_size;
-	int		x = 0;
-	double	ray_dir_x;
-	double	ray_dir_y;
 	
 	square_size = HEIGHT / 12;
 	if (c->img)
@@ -114,23 +143,9 @@ void	draw_minimap(t_cub3d *c)
 		i++;
 	}
 	// player
-	draw_rectangle(c, c->pos_x * square_size - 2, c->pos_y * square_size - 2, 
+	draw_rectangle(c, c->player.pos_x * square_size - 2, c->player.pos_y * square_size - 2, 
 				5, 5, 0xFF0000FF); // red for player
-	i = 0;
-	// ray directions
-	while (x < WIDTH)
-	{
-		calculate_ray_direction(c, x, &ray_dir_x, &ray_dir_y);
-		draw_line(c, c->pos_x * square_size, c->pos_y * square_size,
-			c->pos_x * square_size + ray_dir_x * square_size * 2,
-			c->pos_y * square_size + ray_dir_y * square_size * 2,
-			0x00FF00FF); // green for rays
-		x += WIDTH / 10;
-	}
-	// direction vector
-	draw_line(c, c->pos_x * square_size, c->pos_y * square_size,
-		c->pos_x * square_size + c->dir_x * square_size * 3,
-		c->pos_y * square_size + c->dir_y * square_size * 3, 0x0000FFFF); // blue for direction
+	draw_rays(c, square_size);
 	mlx_image_to_window(c->mlx, c->img, 0, 0);
 }
 
