@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 19:50:03 by candrese          #+#    #+#             */
-/*   Updated: 2025/02/25 11:00:33 by candrese         ###   ########.fr       */
+/*   Updated: 2025/02/27 06:39:40 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	movement(t_cub3d *c, char s)
 {
 	if (s == 'w')
-		c->pos_y -= c->pos_y * c->speed;
+		c->player.pos_y -= c->player.pos_y * c->player.speed;
 	else if (s == 'a')
-		c->pos_x -= c->pos_x * c->speed;
+		c->player.pos_x -= c->player.pos_x * c->player.speed;
 	else if (s == 's')
-		c->pos_y += c->pos_y * c->speed;
+		c->player.pos_y += c->player.pos_y * c->player.speed;
 	else if (s == 'd')
-		c->pos_x += c->pos_x * c->speed;
+		c->player.pos_x += c->player.pos_x * c->player.speed;
 }
 
 void	key_input(t_cub3d *c)
