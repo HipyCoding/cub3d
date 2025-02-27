@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:49 by candrese          #+#    #+#             */
-/*   Updated: 2025/02/25 09:59:04 by candrese         ###   ########.fr       */
+/*   Updated: 2025/02/27 06:47:12 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,66 @@
 
 # define RED 0xFF0000FF
 
+typedef struct s_player
+{
+	double	pos_x;
+	double	pos_y;
+
+	// direction vextor
+	double	dir_x;
+	double	dir_y;
+
+	// camera plane
+	double	plane_x;
+	double	plane_y;
+	double	speed;
+}	t_player;
+
+
+typedef struct s_ray
+{
+	// ray direction
+	double	dir_x;
+	double	dir_y;
+	
+	// current map coordinate
+	int		map_x;
+	int		map_y;
+
+	// for general direction 1/-1
+	int		step_x;
+	int		step_y;
+	
+	// distance to next grid
+	double	side_dist_x;
+	double	side_dist_y;
+	
+	// deltas
+	double	delta_dist_x;
+	double	delta_dist_y;
+	
+	// for wall hit
+	int		side; // example (0 = x, 1 = y)
+	double	wall_dist;
+}	t_ray;
+
 typedef struct s_cub3d
 {
-	// mlx
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 
+	// map
+	char			**test_map;
+	int				map_height;
+	int				map_width;
+	
 	// general
-	int				x;
-	int				y;
 	int				line_pos;
 	int				direction;
 	int				line_length;
-	char			**test_map;
 	
-	// player position and direction
-	double			pos_x;
-	double			pos_y;
-	double			dir_x;
-	double			dir_y;
-	double			plane_x;
-	double			plane_y;
+	t_player		player;
+	t_ray			ray;
 }	t_cub3d;
 
 void	clean_exit(t_cub3d *c);
@@ -60,6 +99,8 @@ void	key_input(t_cub3d *c);
 void	main_loop(void *param);
 void	put_cub3d(t_cub3d *c);
 void	draw_line(t_cub3d *c, int x1, int y1, int x2, int y2, uint32_t color);
+
+double	perform_dda(t_cub3d *c, double ray_dir_x, double ray_dir_y, int *side);
 
 char	**test_map(void);
 void	calculate_ray_direction(t_cub3d *c, int x, double *ray_dir_x, double *ray_dir_y);

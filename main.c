@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:46 by candrese          #+#    #+#             */
-/*   Updated: 2025/02/25 09:53:04 by candrese         ###   ########.fr       */
+/*   Updated: 2025/02/27 06:43:59 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,51 @@ char **test_map(void)
 }
 
 
+void	init_player(t_player *player)
+{
+	player->pos_x = 2.0;
+	player->pos_y = 3.5;
+	player->dir_x = 1.0;
+	player->dir_y = 0.0;
+
+	// for fov
+	player->plane_x = 0.0;
+	player->plane_y = 0.66;
+	
+	player->speed = 0.01;
+}
+
+void	init_map(t_cub3d *c)
+{
+	int	i;
+	
+	c->test_map = test_map();
+	if (!c->test_map)
+		exit(EXIT_FAILURE);
+	c->map_height = 0;
+	while (c->test_map[c->map_height])
+		c->map_height++;
+	c->map_width = 0;
+	i = 0;
+	while (i < c->map_height)
+	{
+		int row_len = ft_strlen(c->test_map[i]);
+		if (row_len > c->map_width)
+			c->map_width = row_len;
+		i++;
+	}
+}
+
+
 void	init_to_winit(t_cub3d *c)
 {
-	// basic variables
-	c->x = 0;
-	c->y = 0;
 	c->line_pos = 100;
 	c->direction = 1;
 	c->line_length = 200;
-
-	// player variables
-	c->pos_x = 2.0;
-	c->pos_y = 3.5;
-	c->dir_x = 1.0;
-	c->dir_y = 0.0;
-	c->plane_x = 0.0;
-	c->plane_y = 0.66;
-
+	init_player(&c->player);
 	c->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
 	c->img = mlx_new_image(c->mlx, WIDTH, HEIGHT);
-	c->test_map = test_map();
+	init_map(c);
 	if (!c->mlx || !c->img || !c->test_map)
 		exit(EXIT_FAILURE);
 }

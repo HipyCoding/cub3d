@@ -9,22 +9,23 @@ move your lazy albanian ass and do the parsing <3
 TODO, after skipping through the guide:
 
 initialize hardcoded testmap, since i am not doing the parsing
+ok
 
 player position
-	1)	pov direction vector based on N/S/E/W
-	2)	make plane vector perpendicular to direction
+ok	1)	pov direction vector based on N/S/E/W
+ok	2)	make plane vector perpendicular to direction
 
 basic raycasting structure
-	1)	calculate ray position and direction
+ok	1)	calculate ray position and direction
 		cam_x = 2 * x / WIDTH; 
 		(to make mathematical range of -1 to +1, scaled to our window)
 		ray_dir_x = c->player.dir_x + c->player.plane_x * cam_x;
 		(e.g. for factor 1, the vector addition would make it the furthest right ray)
 		ray_dir_y = c->player.dir_y + c->player.plane_y * cam_x;
 		something like this
-	2)	learn more about DDA
-	3)	implement DDA
-	4)	calculate wall distances
+ok	2)	learn more about DDA
+ok	3)	implement DDA
+ok	4)	calculate wall distances
 	5)	wall heights
 	6)	draw vertical strips based on calculations
 
@@ -35,7 +36,7 @@ render environment
 	4)	draw floor
 
 implement player movement
-	1)	WASD for movement
+ok	1)	WASD for movement
 		player.pos = player.pos + (player.dir * speed)
 		something like this, so we dont move in lightspeed
 	2)	arrow keys for rotation

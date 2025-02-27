@@ -6,13 +6,13 @@
 #    By: candrese <candrese@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:15:17 by candrese          #+#    #+#              #
-#    Updated: 2025/02/25 02:11:49 by candrese         ###   ########.fr        #
+#    Updated: 2025/02/27 07:11:21 by candrese         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 INCLUDES_DIR = includes
 OBJ_DIR = bin
@@ -23,6 +23,7 @@ SRCS = main.c \
 	execution/animations.c \
 	execution/clean.c \
 	execution/controls.c \
+	execution/dda.c \
 	execution/execution.c
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
