@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:49 by candrese          #+#    #+#             */
-/*   Updated: 2025/02/27 06:47:12 by candrese         ###   ########.fr       */
+/*   Updated: 2025/03/02 22:12:24 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,11 @@ typedef struct s_ray
 	// for wall hit
 	int		side; // example (0 = x, 1 = y)
 	double	wall_dist;
+
+	// walls
+	int		line_height;  // hight of wall line
+	int		draw_start;   // y start coordinate
+	int		draw_end;     // y end coordinate
 }	t_ray;
 
 typedef struct s_cub3d
@@ -100,8 +105,9 @@ void	main_loop(void *param);
 void	put_cub3d(t_cub3d *c);
 void	draw_line(t_cub3d *c, int x1, int y1, int x2, int y2, uint32_t color);
 
-double	perform_dda(t_cub3d *c, double ray_dir_x, double ray_dir_y, int *side);
+void	perform_dda(t_cub3d *c, double ray_dir_x, double ray_dir_y);
 
+void	calculate_wall_height(t_cub3d *c);
 char	**test_map(void);
 void	calculate_ray_direction(t_cub3d *c, int x, double *ray_dir_x, double *ray_dir_y);
 void	draw_minimap(t_cub3d *c);
