@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:32:15 by candrese          #+#    #+#             */
-/*   Updated: 2025/02/27 07:10:19 by candrese         ###   ########.fr       */
+/*   Updated: 2025/03/02 22:15:21 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,26 @@ void	calculate_ray_direction(t_cub3d *c, int x, double *ray_dir_x, double *ray_d
 	*ray_dir_y = c->player.dir_y + c->player.plane_y * camera_x;
 }
 
+void	calculate_wall_height(t_cub3d *c)
+{
+	// height of the line
+	c->ray.line_height = (int)(HEIGHT / c->ray.wall_dist);
+	
+	// lowest and highest pixel to fill
+	c->ray.draw_start = -c->ray.line_height / 2 + HEIGHT / 2;
+	if (c->ray.draw_start < 0)
+		c->ray.draw_start = 0;
+	
+	c->ray.draw_end = c->ray.line_height / 2 + HEIGHT / 2;
+	if (c->ray.draw_end >= HEIGHT)
+		c->ray.draw_end = HEIGHT - 1;
+}
 
 void	draw_rays(t_cub3d *c, int square_size)
 {
 	int	x;
 	double	ray_dir_x;
 	double	ray_dir_y;
-	double	wall_dist;
-	int		side;
 	double	wall_x;
 	double	wall_y;
 	
@@ -95,21 +107,26 @@ void	draw_rays(t_cub3d *c, int square_size)
 	while (x < WIDTH)
 	{
 		calculate_ray_direction(c, x, &ray_dir_x, &ray_dir_y);
-		wall_dist = perform_dda(c, ray_dir_x, ray_dir_y, &side);
+		perform_dda(c, ray_dir_x, ray_dir_y);
 		// wall hit position
-		wall_x = c->player.pos_x + ray_dir_x * wall_dist;
-		wall_y = c->player.pos_y + ray_dir_y * wall_dist;
+		wall_x = c->player.pos_x + ray_dir_x * c->ray.wall_dist;
+		wall_y = c->player.pos_y + ray_dir_y * c->ray.wall_dist;
 
 		// ray from player position
 		draw_line(c, c->player.pos_x * square_size, c->player.pos_y * square_size,
 			wall_x * square_size, wall_y * square_size,
 			0x00FF00FF); // green for rays
-		x += WIDTH / 10;
+		x += WIDTH / 11;
 	}
 	// direction vector
 	draw_line(c, c->player.pos_x * square_size, c->player.pos_y * square_size,
-		ray_dir_x * square_size, ray_dir_y * square_size, 0x0000FFFF); // blue for direction
+		c->player.pos_x * square_size + c->player.dir_x * square_size * 3,
+		c->player.pos_y * square_size + c->player.dir_y * square_size * 3, 
+		0x0000FFFF); // blue for direction
 }
+
+
+
 
 
 // builds 2d map for testing purpusos and casts rays from player onto FOV
