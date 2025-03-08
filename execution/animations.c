@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:32:15 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/02 22:15:21 by candrese         ###   ########.fr       */
+/*   Updated: 2025/03/08 01:30:43 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 // 	draw_line(c, start_x, start_y, end_x, end_y, RED);
 // 	draw_line(c, start_x, start_y - 50, end_x, start_y + 50, RED);
 // }
+
 
 void	draw_line(t_cub3d *c, int x1, int y1, int x2, int y2, uint32_t color)
 {
@@ -71,6 +72,7 @@ void	draw_line(t_cub3d *c, int x1, int y1, int x2, int y2, uint32_t color)
 	}
 }
 
+
 void	calculate_ray_direction(t_cub3d *c, int x, double *ray_dir_x, double *ray_dir_y)
 {
 	double	camera_x;
@@ -79,6 +81,7 @@ void	calculate_ray_direction(t_cub3d *c, int x, double *ray_dir_x, double *ray_d
 	*ray_dir_x = c->player.dir_x + c->player.plane_x * camera_x;
 	*ray_dir_y = c->player.dir_y + c->player.plane_y * camera_x;
 }
+
 
 void	calculate_wall_height(t_cub3d *c)
 {
@@ -95,6 +98,7 @@ void	calculate_wall_height(t_cub3d *c)
 		c->ray.draw_end = HEIGHT - 1;
 }
 
+
 void	draw_rays(t_cub3d *c, int square_size)
 {
 	int	x;
@@ -102,7 +106,7 @@ void	draw_rays(t_cub3d *c, int square_size)
 	double	ray_dir_y;
 	double	wall_x;
 	double	wall_y;
-	
+
 	x = 0;
 	while (x < WIDTH)
 	{
@@ -137,11 +141,6 @@ void	draw_minimap(t_cub3d *c)
 	int		square_size;
 	
 	square_size = HEIGHT / 12;
-	if (c->img)
-		mlx_delete_image(c->mlx, c->img);
-	c->img = mlx_new_image(c->mlx, WIDTH, HEIGHT);
-	if (!c->img)
-		clean_exit(c);
 	// map squares
 	i = 0;
 	while (c->test_map[i])
@@ -162,8 +161,6 @@ void	draw_minimap(t_cub3d *c)
 	// player
 	draw_rectangle(c, c->player.pos_x * square_size - 2, c->player.pos_y * square_size - 2, 
 				5, 5, 0xFF0000FF); // red for player
-	draw_rays(c, square_size);
-	mlx_image_to_window(c->mlx, c->img, 0, 0);
 }
 
 void	draw_rectangle(t_cub3d *c, int x, int y, int width, int height, uint32_t color)

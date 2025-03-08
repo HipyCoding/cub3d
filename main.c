@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:46 by candrese          #+#    #+#             */
-/*   Updated: 2025/02/27 06:43:59 by candrese         ###   ########.fr       */
+/*   Updated: 2025/03/08 01:37:25 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,6 @@ int	main()
 	mlx_loop_hook(c.mlx, &main_loop, &c);
 	mlx_loop(c.mlx);
 	// Clean up
-	mlx_terminate(c.mlx);
+	clean_exit(&c);
 	return (EXIT_SUCCESS);
 }
