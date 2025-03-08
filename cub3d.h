@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:49 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/02 22:12:24 by candrese         ###   ########.fr       */
+/*   Updated: 2025/03/08 01:22:49 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,17 @@ void	key_input(t_cub3d *c);
 
 void	main_loop(void *param);
 void	put_cub3d(t_cub3d *c);
-void	draw_line(t_cub3d *c, int x1, int y1, int x2, int y2, uint32_t color);
 
 void	perform_dda(t_cub3d *c, double ray_dir_x, double ray_dir_y);
 
 void	calculate_wall_height(t_cub3d *c);
 char	**test_map(void);
 void	calculate_ray_direction(t_cub3d *c, int x, double *ray_dir_x, double *ray_dir_y);
+void	draw_rays(t_cub3d *c, int square_size);
 void	draw_minimap(t_cub3d *c);
+void	draw_line(t_cub3d *c, int x1, int y1, int x2, int y2, uint32_t color);
 void	draw_rectangle(t_cub3d *c, int x, int y, int width, int height, uint32_t color);
+
+void	draw_3d_rays(t_cub3d *c);
 
 #endif

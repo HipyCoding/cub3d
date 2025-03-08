@@ -26,11 +26,11 @@ ok	1)	calculate ray position and direction
 ok	2)	learn more about DDA
 ok	3)	implement DDA
 ok	4)	calculate wall distances
-	5)	wall heights
-	6)	draw vertical strips based on calculations
+ok	5)	wall heights
+ok	6)	draw vertical strips based on calculations
 
 render environment
-	1)	since y=0 is at top, start with ceiling
+ok	1)	since y=0 is at top, start with ceiling
 	2)	implement textures for different directions (NSEW)
 	3)	find a way to scale textures
 	4)	draw floor

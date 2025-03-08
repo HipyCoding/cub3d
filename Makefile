@@ -6,7 +6,7 @@
 #    By: candrese <candrese@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:15:17 by candrese          #+#    #+#              #
-#    Updated: 2025/02/27 07:11:21 by candrese         ###   ########.fr        #
+#    Updated: 2025/03/08 01:16:41 by candrese         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS = main.c \
 	execution/clean.c \
 	execution/controls.c \
 	execution/dda.c \
+	execution/rays.c \
 	execution/execution.c
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
