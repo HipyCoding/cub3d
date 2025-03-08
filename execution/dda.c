@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 05:26:42 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/02 22:12:15 by candrese         ###   ########.fr       */
+/*   Updated: 2025/03/08 22:09:24 by christian        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	init_dda_variables(t_cub3d *c, double ray_dir_x, double ray_dir_y)
 
 	c->ray.dir_x = ray_dir_x;
 	c->ray.dir_y = ray_dir_y;
-	c->ray.map_x = (int)c->player.pos_x;
-	c->ray.map_y = (int)c->player.pos_y;
+	c->ray.map_x = c->player.pos_x;
+	c->ray.map_y = c->player.pos_y;
 	
 	// calculate deltas (distance to next x or y grid)
 	if (ray_dir_x == 0) // in case devision by 0

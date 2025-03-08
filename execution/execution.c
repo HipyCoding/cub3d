@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 02:06:43 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/08 01:41:22 by candrese         ###   ########.fr       */
+/*   Updated: 2025/03/08 22:08:16 by christian        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	main_loop(void *param)
 	if (!c->img)
 		clean_exit(c);
 
-	draw_minimap(c);
-	draw_rays(c, HEIGHT / 12);
-	// draw_3d_rays(c);
+	// draw_minimap(c);
+	// draw_rays(c, HEIGHT / 12);
+	draw_3d_rays(c);
 	mlx_image_to_window(c->mlx, c->img, 0, 0);
 
 	//put_cub3d(c);

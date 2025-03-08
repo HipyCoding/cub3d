@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: candrese <candrese@student.42.fr>          +#+  +:+       +#+         #
+#    By: christian <christian@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:15:17 by candrese          #+#    #+#              #
-#    Updated: 2025/03/08 01:16:41 by candrese         ###   ########.fr        #
+#    Updated: 2025/03/08 22:07:37 by christian        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,9 @@ $(MLX): | $(INCLUDES_DIR)
 	@cd $(MLX_DIR) && cmake -B ../mlx_build && cmake --build ../mlx_build -j4
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
-	$(CC) $(OBJS) $(CFLAGS) -L$(LIBFT_DIR) -lft -L$(MLX_BUILD) -lmlx42 -lglfw $(FRAMEWORKS) -o $(NAME)
+	$(CC) $(OBJS) $(CFLAGS) -L$(LIBFT_DIR) -lft -L$(MLX_BUILD) -lmlx42 -L$(shell brew --prefix glfw)/lib -lglfw $(FRAMEWORKS) -o $(NAME)
+	
+#$(CC) $(OBJS) $(CFLAGS) -L$(LIBFT_DIR) -lft -L$(MLX_BUILD) -lmlx42 -lglfw $(FRAMEWORKS) -o $(NAME)
 
 clean:
 	@rm -rf $(OBJ_DIR)
