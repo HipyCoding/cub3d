@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 19:50:03 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/02 22:23:26 by candrese         ###   ########.fr       */
+/*   Updated: 2025/03/08 09:16:37 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,35 @@ void	print_wall_info(t_cub3d *c)
 	printf("------------\n");
 }
 
+bool	wall_check(t_cub3d *c, double x, double y)
+{
+	int	map_x;
+	int map_y;
+
+	map_x = x;
+	map_y = y;
+	if (map_y < 0 || map_x < 0 || map_y >= c->map_height || 
+		map_x >= (int)ft_strlen(c->test_map[map_y]))
+		return (true);
+	if (c->test_map[map_y][map_x] == '1')
+		return (1);
+	return (false);
+}
+
 void	movement(t_cub3d *c, char s)
 {
-	if (s == 'w')
+	if (s == 'w' && !wall_check(c, c->player.pos_x,
+		c->player.pos_y - c->player.speed))
 		c->player.pos_y -= c->player.pos_y * c->player.speed;
-	else if (s == 'a')
+	else if (s == 'a' && !wall_check(c,
+		c->player.pos_x -  c->player.speed, c->player.pos_y))
 		c->player.pos_x -= c->player.pos_x * c->player.speed;
-	else if (s == 's')
+	else if (s == 's' && !wall_check(c, c->player.pos_x,
+		c->player.pos_y + c->player.speed))
 		c->player.pos_y += c->player.pos_y * c->player.speed;
-	else if (s == 'd')
-		c->player.pos_x += c->player.pos_x * c->player.speed;
+	else if (s == 'd' && !wall_check(c,
+		c->player.pos_x + c->player.speed, c->player.pos_y))
+	c->player.pos_x += c->player.pos_x * c->player.speed;
 }
 
 void	key_input(t_cub3d *c)
