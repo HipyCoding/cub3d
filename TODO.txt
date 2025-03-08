@@ -2,6 +2,8 @@
 
 this is the guide i am following: (i found it the most easy to follow so far)
 https://hackmd.io/@nszl/H1LXByIE2#Introduction
+https://medium.com/@rtailidounia/raycasting-in-cub3d-42-network-project-a-practical-tutorial-using-vectors-68eeb16b3de2
+(for math in more detail)
 
 TODO for juidxin : 
 move your lazy albanian ass and do the parsing <3
@@ -41,4 +43,4 @@ ok	1)	WASD for movement
 		something like this, so we dont move in lightspeed
 	2)	arrow keys for rotation
 		i think this will be harder than movement
-	3)	put in wall collision
+ok	3)	put in wall collision

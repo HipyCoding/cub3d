@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:46 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/08 01:37:25 by candrese         ###   ########.fr       */
+/*   Updated: 2025/03/08 11:05:12 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ void	init_player(t_player *player)
 {
 	player->pos_x = 2.0;
 	player->pos_y = 3.5;
-	player->dir_x = 1.0;
-	player->dir_y = 0.0;
+	player->dir_x = 0.0;
+	player->dir_y = -1.0;
 
 	// for fov
-	player->plane_x = 0.0;
-	player->plane_y = 0.66;
+	player->plane_x = 0.66;
+	player->plane_y = 0.0;
 	
 	player->speed = 0.01;
 }
