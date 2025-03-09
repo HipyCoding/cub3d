@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:46 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/08 11:05:12 by candrese         ###   ########.fr       */
+/*   Updated: 2025/03/09 07:21:15 by christian        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	init_player(t_player *player)
 	player->plane_y = 0.0;
 	
 	player->speed = 0.01;
+	player->r_speed = 0.07;
 }
 
 void	init_map(t_cub3d *c)

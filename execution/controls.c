@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 19:50:03 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/08 11:03:53 by candrese         ###   ########.fr       */
+/*   Updated: 2025/03/09 07:29:31 by christian        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,32 @@ bool	wall_check(t_cub3d *c, double x, double y)
 	return (false);
 }
 
+void	rotation(t_cub3d *c, char a)
+{
+	double	temp_dir;
+	double	temp_plane;
+	double	rot;
+
+	temp_dir = c->player.dir_x;
+	temp_plane = c->player.plane_x;
+	if(a == 'l')
+		rot = 1.0;
+	else
+		rot = -1.0;
+	
+	// direction vector matrix
+	c->player.dir_x = c->player.dir_x * cos(c->player.r_speed * rot)
+	- c->player.dir_y * sin(c->player.r_speed * rot);
+	c->player.dir_y = temp_dir * sin(c->player.r_speed * rot)
+	+ c->player.dir_y * cos(c->player.r_speed * rot);
+	
+	// plane matrix
+	c->player.plane_x = c->player.plane_x * cos(c->player.r_speed * rot)
+	- c->player.plane_y * sin(c->player.r_speed * rot);
+	c->player.plane_y = temp_plane * sin(c->player.r_speed * rot)
+	+ c->player.plane_y * cos(c->player.r_speed * rot);
+}
+
 void	movement(t_cub3d *c, char s)
 {
 	int		temp_x;
@@ -85,5 +111,9 @@ void	key_input(t_cub3d *c)
 		movement(c, 'd');	
 	else if (mlx_is_key_down(c->mlx, MLX_KEY_F))
 		print_wall_info(c);
+	else if (mlx_is_key_down(c->mlx, MLX_KEY_LEFT))
+		rotation(c, 'l');
+	else if (mlx_is_key_down(c->mlx, MLX_KEY_RIGHT))
+		rotation(c, 'r');
 }
 
