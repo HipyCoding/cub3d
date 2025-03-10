@@ -1,0 +1,3 @@
+[submodule "includes/eugenelibft"]
+	path = includes/eugenelibft
+	url = https://github.com/jidrizi/Libft.git
