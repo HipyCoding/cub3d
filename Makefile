@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: candrese <candrese@student.42.fr>          +#+  +:+       +#+         #
+#    By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:15:17 by candrese          #+#    #+#              #
-#    Updated: 2025/02/27 07:11:21 by candrese         ###   ########.fr        #
+#    Updated: 2025/03/04 18:04:39 by jidrizi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,10 @@ FRAMEWORKS = -framework Cocoa -framework OpenGL -framework IOKit
 
 all: $(NAME)
 
+./includes/eugenelibft/libft.a:
+	@git submodule update --init ./includes/eugenelibft
+	@make -C ./includes/eugenelibft
+
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
@@ -59,7 +63,7 @@ $(MLX): | $(INCLUDES_DIR)
 	@mkdir -p $(MLX_BUILD)
 	@cd $(MLX_DIR) && cmake -B ../mlx_build && cmake --build ../mlx_build -j4
 
-$(NAME): $(LIBFT) $(MLX) $(OBJS)
+$(NAME): ./includes/eugenelibft/libft.a $(LIBFT) $(MLX) $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) -L$(LIBFT_DIR) -lft -L$(MLX_BUILD) -lmlx42 -lglfw $(FRAMEWORKS) -o $(NAME)
 
 clean:

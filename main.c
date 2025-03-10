@@ -3,20 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:46 by candrese          #+#    #+#             */
-/*   Updated: 2025/02/27 06:43:59 by candrese         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:48:24 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// int args(int ac, char **av, t_cub3d	*c)
-// {
-// 	// here we will check for arguments
-// 	return 0;
-// }
+#include "parse.h"
 
 
 // only to build execution, i will delete later
@@ -88,14 +83,12 @@ void	init_to_winit(t_cub3d *c)
 }
 
 
-int	main()
+int	main(int argc, char **argv)
 {
 	t_cub3d	c;
 
-	// if (args(ac, argv, &c))
-	// {
-	// 	return (EXIT_FAILURE);
-	// }
+	if (parse(argc, argv) == EXIT_FAILURE)
+		return(EXIT_FAILURE);
 	init_to_winit(&c);
 	// mlx_key_hook(c.mlx, &key_hook, &c);
 	// ptrototype: mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param)
