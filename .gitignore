@@ -3,3 +3,5 @@ vscode
 *.o
 *.a
 bin
+cub3d
+.vscode
