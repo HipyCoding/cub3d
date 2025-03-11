@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:52:54 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/10 14:04:51 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/11 18:51:46 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*fill_map_str(char *current_line, char *map_file, int fd)
 	return (map_file);
 }
 
-static char	*get_map_whole(char *arg1)
+char	*get_map_whole(char *arg1)
 {
 	int		fd;
 	char	*map;
@@ -42,18 +42,9 @@ static char	*get_map_whole(char *arg1)
 	map = NULL;
 	current_line = get_next_line(fd);
 	if (!current_line)
-		return (error_msg("Map is empty\n"), close(fd), NULL);
+		return (error_msg("Something wrong with map file\n"), close(fd), NULL);
 	map = fill_map_str(current_line, map, fd);
 	if (!map)
 		return (close(fd), error_msg("Something wrong with map file\n"), NULL);
 	return (close(fd), map);
-}
-
-char	**get_map_array(char *arg1)
-{
-	const char	*whole_map = get_map_whole(arg1);
-	char	*top_half;
-	char	*bottom_half;
-
-	
 }

@@ -6,13 +6,14 @@
 #    By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:15:17 by candrese          #+#    #+#              #
-#    Updated: 2025/03/04 18:04:39 by jidrizi          ###   ########.fr        #
+#    Updated: 2025/03/11 19:06:23 by jidrizi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+# CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 
 
 INCLUDES_DIR = includes
 OBJ_DIR = bin
@@ -24,7 +25,8 @@ SRCS = main.c \
 	execution/clean.c \
 	execution/controls.c \
 	execution/dda.c \
-	execution/execution.c
+	execution/execution.c \
+	parsing/parse.c parsing/misc.c parsing/get_map.c parsing/check_elements.c\
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
@@ -64,7 +66,7 @@ $(MLX): | $(INCLUDES_DIR)
 	@cd $(MLX_DIR) && cmake -B ../mlx_build && cmake --build ../mlx_build -j4
 
 $(NAME): ./includes/eugenelibft/libft.a $(LIBFT) $(MLX) $(OBJS)
-	$(CC) $(OBJS) $(CFLAGS) -L$(LIBFT_DIR) -lft -L$(MLX_BUILD) -lmlx42 -lglfw $(FRAMEWORKS) -o $(NAME)
+	$(CC) $(OBJS) ./includes/eugenelibft/libft.a $(CFLAGS) -L$(LIBFT_DIR) -lft -L$(MLX_BUILD) -lmlx42 -lglfw $(FRAMEWORKS) -o $(NAME)
 
 clean:
 	@rm -rf $(OBJ_DIR)
