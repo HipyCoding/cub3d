@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:06:32 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/11 19:00:59 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/11 19:22:24 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	parse(int argc, char **argv)
 	map = get_map_whole(argv[1]);
 	if (!map)
 		return (EXIT_FAILURE);
-	if (check_elements(&elements, map) == EXIT_FAILURE)
+	if (check_elements(&map, &elements) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:15:24 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/11 19:11:53 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/11 19:35:29 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	handle_textures(char **map)
 	fd = open(path, O_RDONLY);
 	ft_free_and_null((void **)&path);
 	if (fd < 0)
-		ft_free_and_null((void **)map);
+		map[0] = NULL;
 	close(fd);
 }
 
@@ -55,24 +55,24 @@ static void	handle_element(char **map, t_elements *elements, int instance)
 	handle_textures(map);
 }
 
-int	check_elements(t_elements *elements, char *map)
+int	check_elements(char **map, t_elements *elements)
 {
-	while (map && map[0])
+	while (map[0] && map[0][0])
 	{
-		if (map[0] == 'N' && map[1] == 'O')
-			handle_element(&map, elements, NO);
-		else if (map[0] == 'S' && map[1] == 'O')
-			handle_element(&map, elements, SO);
-		else if (map[0] == 'W' && map[1] == 'E')
-			handle_element(&map, elements, WE);
-		else if (map[0] == 'E' && map[1] == 'A')
-			handle_element(&map, elements, EA);
-		else if (map[0] == 'F')
-			handle_element(&map, elements, F);
-		else if (map[0] == 'C')
-			handle_element(&map, elements, C);
-		if (map)
-			map += 1;
+		if (map[0][0] == 'N' && map[0][1] == 'O')
+			handle_element(map, elements, NO);
+		else if (map[0][0] == 'S' && map[0][1] == 'O')
+			handle_element(map, elements, SO);
+		else if (map[0][0] == 'W' && map[0][1] == 'E')
+			handle_element(map, elements, WE);
+		else if (map[0][0] == 'E' && map[0][1] == 'A')
+			handle_element(map, elements, EA);
+		else if (map[0][0] == 'F')
+			handle_element(map, elements, F);
+		else if (map[0][0] == 'C')
+			handle_element(map, elements, C);
+		if (map[0])
+			map[0] += 1;
 	}
 	if (elements->no_count != 1 || elements->so_count != 1
 		|| elements->we_count != 1 || elements->ea_count != 1

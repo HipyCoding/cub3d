@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:08:25 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/11 19:01:09 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/11 19:21:56 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ enum e_enum_elements
 void	error_msg(char *msg);
 int		parse(int argc, char **argv);
 char	*get_map_whole(char *arg1);
-int		check_elements(t_elements *elements, char *map);
+int		check_elements(char **map, t_elements *elements);
 
 #endif
