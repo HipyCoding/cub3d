@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:21:11 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/10 16:16:55 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/27 16:12:27 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,38 @@ void	error_msg(char *msg)
 {
 	write(STDERR_FILENO, "Error\n", 6);
 	write(STDERR_FILENO, msg, ft_strlen(msg));
+}
+
+// yes it looks stupid but i use this to get around norm
+int break_or_error(t_elements *elements, int purpose)
+{
+	if (purpose == BREAK)
+	{
+		if (elements->no_count > 0 && elements->so_count > 0
+			&& elements->ea_count > 0 && elements->we_count > 0
+			&& elements->f_count > 0 && elements->c_count > 0)
+			return (1);
+	}
+	else if (purpose == ERROR)
+	{
+		if (elements->no_count != 1 || elements->so_count != 1
+			|| elements->ea_count != 1 || elements->we_count != 1
+			|| elements->f_count != 1 || elements->c_count != 1)
+			return (1);
+	}
+	return (0);
+}
+
+int	check_map_characters(char *map)
+{
+	int i;
+
+	i = 0;
+	while (map[i] && (map[i] == '1' || map[i] == '0'
+		|| map[i] == 'N' || map[i] == 'S' || map[i] == 'E' || map[i] ==  'W'
+		|| map[i] == ' ' || map[i] == '\t' || map[i] == '\n'))
+		i++;
+	if (map[i] != '\0')
+		return (error_msg("Map content is not correct"), EXIT_FAILURE);
+	return(EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:15:24 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/27 12:21:52 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/27 16:12:51 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,36 +33,57 @@ static void	handle_textures(char **map)
 	close(fd);
 }
 
-static void	handle_color(char **map)
+static int	get_num(char **map)
 {
-	int 	value;
-	int 	num;
+	int		num;
 	int		i;
 	char	*sub_s;
 
-	value = 1;
 	i = 0;
-	while (value <= 3)
+	while (map[0][0] == ' ' || map[0][0] == '\t' || map[0][0] == '\n')
+		map[0]++;
+	if (!(map[0][i] >= '0' && map[0][i] <= '9'))
 	{
-		while (map[0][0] == ' ' || map[0][0] == '\t' || map[0][0] == '\n')
-			map[0]++;
-		if (!(map[0][i] >= '0' && map[0][i] <= '9'))
-			map[0] = NULL;
-		while (map[0][i] >= '0' && map[0][i] <= '9')
-			i++;
-		if (i > 3)
-			map[0] = NULL;
-		sub_s = ft_substr(map[0], 0, i);
-		num = ft_atoi(sub_s);
-		ft_free_and_null((void **)&sub_s);
+		map[0] = NULL;
+		return (-1);
+	}
+	while (map[0][i] >= '0' && map[0][i] <= '9')
+		i++;
+	if (i > 3)
+	{
+		map[0] = NULL;
+		return (-1);
+	}
+	sub_s = ft_substr(map[0], 0, i);
+	num = ft_atoi(sub_s);
+	map[0] += i;
+	return (ft_free_and_null((void **)&sub_s), num);
+}
+
+static void	handle_color(char **map)
+{
+	int	value;
+	int	num;
+
+	value = 1;
+	while (value <= 3 && map[0])
+	{
+		num = get_num(map);
 		if (!(num >= 0 && num <= 255))
+		{
 			map[0] = NULL;
-		map[0] += i;
+			return ;
+		}
+		while (value < 3 && (map[0][0] == ' '
+			|| map[0][0] == '\t' || map[0][0] == '\n'))
+			map[0]++;
 		if (value < 3 && map[0][0] == ',')
 			map[0]++;
 		else if (value < 3 && map[0][0] != ',')
+		{
 			map[0] = NULL;
-		i = 0;
+			return ;
+		}
 		value++;
 	}
 }
@@ -84,7 +105,7 @@ static void	handle_element(char **map, t_elements *elements, int instance)
 	if (instance == F || instance == C)
 		return (map[0]++, handle_color(map), (void)0);
 	else
-	map[0] += 2;
+		map[0] += 2;
 	while (map[0][0] && (map[0][0] == ' ' || map[0][0] == '\t'
 		|| map[0][0] == '\n'))
 		map[0]++;
@@ -107,15 +128,14 @@ int	check_elements(char **map, t_elements *elements)
 			handle_element(map, elements, F);
 		else if (map[0][0] == 'C')
 			handle_element(map, elements, C);
-		if (map[0][0]!= ' ' && map[0][0]!= '\t' && map[0][0]!= '\n')
+		if (break_or_error(elements, BREAK) == 1 && map[0])
+			break ;
+		if (map[0] && map[0][0]!= ' ' && map[0][0]!= '\t' && map[0][0]!= '\n')
 			map[0] = NULL;
 		if (map[0])
 			map[0] += 1;
 	}
-	if (elements->no_count != 1 || elements->so_count != 1
-		|| elements->we_count != 1 || elements->ea_count != 1
-		|| elements->f_count != 1 || elements->c_count != 1
-		|| !map[0])
-		return (error_msg("Something wrong with elements\n"), EXIT_FAILURE);
+	if (break_or_error(elements, ERROR) == 1 || !map[0])
+		return (error_msg("Elements are not correct\n"), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
