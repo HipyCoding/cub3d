@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:06:32 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/11 19:22:24 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/25 18:58:27 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,15 @@ static int	check_cub(char *map_dot_cub)
 	return (EXIT_SUCCESS);
 }
 
+// static int get_map_arr(char **map)
+// {
+// 	static int	i = 0;
+
+// 	while(map[0][0] == ' ' || map[0][0] == '\t' || map[0][0] == '\n')
+// 		map[0]++;// this should move the pointer  to the start of the actual map i guess
+	
+// }
+
 int	parse(int argc, char **argv)
 {
 	static t_elements	elements;
@@ -41,5 +50,7 @@ int	parse(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (check_elements(&map, &elements) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	// if (get_map_arr(&map) == EXIT_FAILURE);
+	// 	return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
