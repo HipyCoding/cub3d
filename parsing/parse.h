@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:08:25 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/27 16:08:41 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/28 16:10:33 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,7 @@ char	*get_map_whole(char *arg1);
 int		check_elements(char **map, t_elements *elements);
 int		break_or_error(t_elements *elements, int purpose);
 int		check_map_characters(char *map);
+char	*remove_white_spaces(char *map);
+
 
 #endif

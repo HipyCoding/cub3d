@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:46 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/10 18:13:48 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/28 17:39:59 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,16 @@
 // }
 
 
+// void leaks()
+// {
+// 	system("leaks cub3d");
+// }
+
 int	main(int argc, char **argv)
 {
 	// t_cub3d	c;
 
+	// atexit(leaks);
 	if (parse(argc, argv) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	// init_to_winit(&c);

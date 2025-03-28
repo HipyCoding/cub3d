@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:21:11 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/27 16:12:27 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/28 17:55:18 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,42 @@ int break_or_error(t_elements *elements, int purpose)
 
 int	check_map_characters(char *map)
 {
-	int i;
+	int	i;
+	int	spawn;
 
 	i = 0;
+	spawn = 0;
 	while (map[i] && (map[i] == '1' || map[i] == '0'
 		|| map[i] == 'N' || map[i] == 'S' || map[i] == 'E' || map[i] ==  'W'
 		|| map[i] == ' ' || map[i] == '\t' || map[i] == '\n'))
+	{
+		if (map[i] == 'N' || map[i] == 'S' || map[i] == 'E' || map[i] ==  'W')
+			spawn++;
 		i++;
-	if (map[i] != '\0')
+	}
+	if (map[i] != '\0' || spawn != 1)
 		return (error_msg("Map content is not correct"), EXIT_FAILURE);
 	return(EXIT_SUCCESS);
+}
+
+char	*remove_white_spaces(char *map)
+{
+	static int	x = 0;
+	static int	y = 0;
+	char		*new_map;
+
+	new_map = ft_calloc(ft_strlen(map) + 1, sizeof(char));
+	while (map[x])
+	{
+		if (map[x] != ' ' && map[x] != '\t')
+		{
+			new_map[y] = map[x];
+		}
+		else
+			new_map[y] = '1';
+		y++;
+		x++;
+	}
+	new_map[y] = '\0';
+	return (new_map);
 }
