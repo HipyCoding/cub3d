@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:15:24 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/27 16:12:51 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/28 18:34:04 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ static void	handle_textures(char **map)
 			&& map[0][i] != '\n')
 		i++;
 	path = ft_substr(map[0], 0, i);
+	// add this back later
+	// if (ft_strncmp(&path[ft_strlen(path) - 4], ".png", 4) != 0)
+	// {
+	// 	map[0] = NULL;
+	// 	return (ft_free_and_null((void **)&path), (void)0);
+	// }
 	fd = open(path, O_RDONLY);
 	ft_free_and_null((void **)&path);
 	// add this back later
