@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:06:32 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/28 17:55:48 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/28 18:35:18 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ int	parse(int argc, char **argv)
 		return (EXIT_FAILURE);
 	tmp = map_string;
 	if (check_elements(&map_string, &elements) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+		return (ft_free_and_null((void **)&tmp), EXIT_FAILURE);
 	if (check_map_characters(map_string) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	map_string = remove_white_spaces(map_string);
+		return (ft_free_and_null((void **)&tmp), EXIT_FAILURE);
+	map_string = make_map_square(map_string);
 	ft_free_and_null((void **)&tmp);
 	printf("%s\n", map_string);
 	// if (check_actual_map(&map_string) == EXIT_FAILURE)
