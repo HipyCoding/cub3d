@@ -6,7 +6,7 @@
 #    By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:15:17 by candrese          #+#    #+#              #
-#    Updated: 2025/03/11 19:06:23 by jidrizi          ###   ########.fr        #
+#    Updated: 2025/03/30 22:59:47 by jidrizi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRCS = main.c \
 	execution/controls.c \
 	execution/dda.c \
 	execution/execution.c \
-	parsing/parse.c parsing/misc.c parsing/get_map.c parsing/check_elements.c\
+	parsing/parse.c parsing/misc.c parsing/get_map.c parsing/check_elements.c \
+	parsing/flood_fill.c \
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 

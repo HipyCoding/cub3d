@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:52:54 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/11 18:51:46 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/30 21:48:21 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,3 +48,4 @@ char	*get_map_whole(char *arg1)
 		return (close(fd), error_msg("Something wrong with map file\n"), NULL);
 	return (close(fd), map);
 }
+

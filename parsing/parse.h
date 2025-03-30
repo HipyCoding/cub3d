@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:08:25 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/30 15:43:50 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/30 23:22:30 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,8 @@ int		break_or_error(t_elements *elements, int purpose);
 int		check_map_characters(char *map);
 int		get_number_of_lines(char *map);
 void	make_map_square(char **map_arr);
+int		flood_fill_check(char **map_arr);
+char	**copy_array(char **map_arr);
+void	free_array_copy(char **map_arr);
 
 #endif

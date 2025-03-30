@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:06:32 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/30 18:02:48 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/30 23:28:14 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,6 @@ static char	**make_map_arr(char *map)
 	return (map_arr);
 }
 
-// used to check if the map is surrounded by walls
-static int flood_fill_check(char **map_arr)
-{
-	if ()
-	return (EXIT_SUCCESS);
-}
-
 int	parse(int argc, char **argv)
 {
 	static t_elements	elements;
@@ -85,6 +78,6 @@ int	parse(int argc, char **argv)
 	map_array = make_map_arr(map_string);
 	ft_free_and_null((void **)&free_map_string);
 	if (flood_fill_check(map_array) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+		return (error_msg("Fail on flood fill bruh\n"), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
