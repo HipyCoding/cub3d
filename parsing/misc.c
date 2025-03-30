@@ -6,11 +6,34 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:21:11 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/28 17:55:18 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/30 17:50:56 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
+
+// !!!!! FOR DEBUGGING PURPOSES ONLY !!!!!
+// void	print_map(char **map_arr)
+// {
+// 	while (*map_arr != NULL)
+// 	{
+// 		while (**map_arr)
+// 		{
+// 			if (**map_arr && **map_arr == '0')
+// 				printf("\033[1;32m%c", **map_arr);
+// 			else if (**map_arr && **map_arr == 'X')
+// 				printf("\033[1;31m%c", **map_arr);
+// 			else if (**map_arr && **map_arr == '1')
+// 				printf("\033[1;34m%c", **map_arr);
+// 			else
+// 				printf("\033[0m%c", **map_arr);
+// 			printf("\033[0m");
+// 			map_arr[0]++;
+// 		}
+// 		printf("\n");
+// 		map_arr++;
+// 	}
+// }
 
 void	error_msg(char *msg)
 {
@@ -58,24 +81,54 @@ int	check_map_characters(char *map)
 	return(EXIT_SUCCESS);
 }
 
-char	*remove_white_spaces(char *map)
+int	get_number_of_lines(char *map)
 {
-	static int	x = 0;
-	static int	y = 0;
-	char		*new_map;
+	int number_of_lines;
 
-	new_map = ft_calloc(ft_strlen(map) + 1, sizeof(char));
-	while (map[x])
+	number_of_lines = 0;
+	while (*map)
 	{
-		if (map[x] != ' ' && map[x] != '\t')
-		{
-			new_map[y] = map[x];
-		}
-		else
-			new_map[y] = '1';
-		y++;
-		x++;
+		if (*map == '\n')
+			number_of_lines++;
+		map++;
 	}
-	new_map[y] = '\0';
-	return (new_map);
+	return (number_of_lines + 1);
+}
+
+void	spaces_2_X(char *str)
+{
+	while (*str)
+	{
+		if (*str == ' ' || *str == '\t')
+			*str = 'X';
+		str++;
+	}
+}
+
+void	make_map_square(char **map_arr)
+{
+	size_t	i;
+	size_t	max_len;
+	char	*new_str;
+
+	i = 0;
+	max_len = 0;
+	while (map_arr[i])
+	{
+		if (ft_strlen(map_arr[i]) > max_len)
+			max_len = ft_strlen(map_arr[i]);
+		i++;
+	}
+	i = 0;
+	while (map_arr[i])
+	{
+		new_str = ft_calloc(max_len + 1, sizeof(char));
+		ft_memset(new_str, 'X', max_len);
+		ft_memcpy(new_str, map_arr[i], ft_strlen(map_arr[i]));
+		ft_free_and_null((void **)&map_arr[i]);
+		map_arr[i] = new_str;
+		spaces_2_X(map_arr[i]);
+		i++;
+	}
+	// print_map(map_arr); remove this later
 }
