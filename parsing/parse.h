@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:08:25 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/30 23:22:30 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/31 00:18:54 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,7 @@ void	make_map_square(char **map_arr);
 int		flood_fill_check(char **map_arr);
 char	**copy_array(char **map_arr);
 void	free_array_copy(char **map_arr);
+int		check_and_flag(char **copy, int x, int y, int return_value);
+
 
 #endif
