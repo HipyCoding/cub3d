@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:08:25 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/31 00:18:54 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/31 17:48:57 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 #define ERROR -2
 
 //TYPES
+
 typedef struct s_elements
 {
 	int		no_count;
@@ -54,17 +55,15 @@ enum e_enum_elements
 //PROTOTYPES
 
 void	error_msg(char *msg);
-int		parse(int argc, char **argv);
+char	**parse(int argc, char **argv);
 char	*get_map_whole(char *arg1);
 int		check_elements(char **map, t_elements *elements);
 int		break_or_error(t_elements *elements, int purpose);
 int		check_map_characters(char *map);
 int		get_number_of_lines(char *map);
 void	make_map_square(char **map_arr);
-int		flood_fill_check(char **map_arr);
+int		flood_fill_check(char **map_arr, size_t map_height);
 char	**copy_array(char **map_arr);
 void	free_array_copy(char **map_arr);
-int		check_and_flag(char **copy, int x, int y, int return_value);
-
 
 #endif

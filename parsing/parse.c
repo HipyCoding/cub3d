@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:06:32 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/30 23:28:14 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/31 17:49:09 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,17 @@ static int	check_cub(char *map_dot_cub)
 	return (EXIT_SUCCESS);
 }
 
-static char	**make_map_arr(char *map)
+static char	**make_map_arr(char *map, size_t *map_height)
 {
-	char	**map_arr;
-	char	*map_line;
-	int		number_of_lines;
-	int		current_line;
-	static int		i = 0;
+	static int	i = 0;
+	char		**map_arr;
+	char		*map_line;
+	int			current_line;
 
 	while (map[0] == '\n')
 		map++;
-	number_of_lines = get_number_of_lines(map);
-	map_arr = ft_calloc(number_of_lines + 1, sizeof(char *));
+	*map_height = (size_t)get_number_of_lines(map);
+	map_arr = ft_calloc(*map_height + 1, sizeof(char *));
 	current_line = 0;
 	while (map[i])
 	{
@@ -56,28 +55,29 @@ static char	**make_map_arr(char *map)
 	return (map_arr);
 }
 
-int	parse(int argc, char **argv)
+char	**parse(int argc, char **argv)
 {
 	static t_elements	elements;
 	char				*map_string;
 	char				**map_array;
 	char				*free_map_string;
+	size_t				map_height;
 
 	if (argc != 2)
-		return (error_msg("Number of arguments isn't correct\n"), EXIT_FAILURE);
+		return (error_msg("Number of arguments isn't correct\n"), NULL);
 	if (check_cub(argv[1]) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+		return (NULL);
 	map_string = get_map_whole(argv[1]);
 	if (!map_string)
-		return (EXIT_FAILURE);
+		return (NULL);
 	free_map_string = map_string;
 	if (check_elements(&map_string, &elements) == EXIT_FAILURE)
-		return (ft_free_and_null((void **)&free_map_string), EXIT_FAILURE);
+		return (ft_free_and_null((void **)&free_map_string), NULL);
 	if (check_map_characters(map_string) == EXIT_FAILURE)
-		return (ft_free_and_null((void **)&free_map_string), EXIT_FAILURE);
-	map_array = make_map_arr(map_string);
+		return (ft_free_and_null((void **)&free_map_string), NULL);
+	map_array = make_map_arr(map_string, &map_height);
 	ft_free_and_null((void **)&free_map_string);
-	if (flood_fill_check(map_array) == EXIT_FAILURE)
-		return (error_msg("Fail on flood fill bruh\n"), EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	if (flood_fill_check(map_array, map_height) == EXIT_FAILURE)
+		return (error_msg("Fail on flood fill bruh\n"), NULL);
+	return (map_array);
 }

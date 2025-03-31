@@ -6,7 +6,7 @@
 /*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:46 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/28 17:39:59 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/03/31 17:48:32 by jidrizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,11 @@
 int	main(int argc, char **argv)
 {
 	// t_cub3d	c;
+	char	**map;
 
 	// atexit(leaks);
-	if (parse(argc, argv) == EXIT_FAILURE)
+	map = parse(argc, argv);
+	if (!map)
 		return (EXIT_FAILURE);
 	// init_to_winit(&c);
 	// mlx_key_hook(c.mlx, &key_hook, &c);
