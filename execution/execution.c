@@ -6,7 +6,7 @@
 /*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 02:06:43 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/08 22:08:16 by christian        ###   ########.fr       */
+/*   Updated: 2025/03/31 05:52:51 by christian        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,9 @@ void	main_loop(void *param)
 	c->img = mlx_new_image(c->mlx, WIDTH, HEIGHT);
 	if (!c->img)
 		clean_exit(c);
-
-	// draw_minimap(c);
-	// draw_rays(c, HEIGHT / 12);
 	draw_3d_rays(c);
 	mlx_image_to_window(c->mlx, c->img, 0, 0);
-
-	//put_cub3d(c);
 }
+
+// draw_minimap(c);
+// draw_rays(c, HEIGHT / 12);
