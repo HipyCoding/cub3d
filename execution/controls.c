@@ -6,39 +6,16 @@
 /*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 19:50:03 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/09 07:29:31 by christian        ###   ########.fr       */
+/*   Updated: 2025/03/31 04:50:29 by christian        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-#include <stdio.h>
-void	print_wall_info(t_cub3d *c)
-{
-	int		x;
-	double	ray_dir_x;
-	double	ray_dir_y;
-	
-	printf("\n--- wall info ---\n");
-	
-	x = 0;
-	while (x < WIDTH)
-	{
-		calculate_ray_direction(c, x, &ray_dir_x, &ray_dir_y);
-		perform_dda(c, ray_dir_x, ray_dir_y);
-		printf("ray %d: wall x/y (%d,%d), distance: %.2f, height: %d pixels (y: %d to %d)\n", 
-			x, c->ray.map_x, c->ray.map_y, c->ray.wall_dist, 
-			c->ray.line_height, c->ray.draw_start, c->ray.draw_end);
-		
-		x += WIDTH / 11;
-	}
-	printf("------------\n");
-}
-
 bool	wall_check(t_cub3d *c, double x, double y)
 {
 	int	map_x;
-	int map_y;
+	int	map_y;
 
 	map_x = x;
 	map_y = y;
@@ -47,6 +24,7 @@ bool	wall_check(t_cub3d *c, double x, double y)
 		return (true);
 	if (c->test_map[map_y][map_x] == '1')
 		return (true);
+	
 	return (false);
 }
 
@@ -76,25 +54,32 @@ void	rotation(t_cub3d *c, char a)
 	+ c->player.plane_y * cos(c->player.r_speed * rot);
 }
 
-void	movement(t_cub3d *c, char s)
+void	movement(t_cub3d *c, char s, double x, double y)
 {
-	int		temp_x;
-	int		temp_y;
-
-	temp_x = c->player.pos_x;
-	temp_y = c->player.pos_y;
-	if (s == 'w' && !wall_check(c, temp_x,
-		temp_y - c->player.speed))
-		c->player.pos_y -= c->player.pos_y * c->player.speed;
-	else if (s == 'a' && !wall_check(c,
-		temp_x -  c->player.speed, temp_y))
-		c->player.pos_x -= c->player.pos_x * c->player.speed;
-	else if (s == 's' && !wall_check(c, temp_x,
-		temp_y + c->player.speed))
-		c->player.pos_y += c->player.pos_y * c->player.speed;
-	else if (s == 'd' && !wall_check(c,
-		temp_x + c->player.speed, temp_y))
-	c->player.pos_x += c->player.pos_x * c->player.speed;
+	if (s == 'w')
+	{
+		x = c->player.dir_x * c->player.speed;
+		y = c->player.dir_y * c->player.speed;
+	}
+	else if (s == 's')
+	{
+		x = -c->player.dir_x * c->player.speed;
+		y = -c->player.dir_y * c->player.speed;
+	}
+	else if (s == 'a')
+	{
+		x = -c->player.plane_x * c->player.speed;
+		y = -c->player.plane_y * c->player.speed;
+	}
+	else
+	{
+		x = c->player.plane_x * c->player.speed;
+		y = c->player.plane_y * c->player.speed;
+	}
+	if (!wall_check(c, c->player.pos_x + x, c->player.pos_y))
+		c->player.pos_x += x;
+	if (!wall_check(c, c->player.pos_x, c->player.pos_y + y))
+		c->player.pos_y += y;
 }
 
 void	key_input(t_cub3d *c)
@@ -102,18 +87,43 @@ void	key_input(t_cub3d *c)
 	if (mlx_is_key_down(c->mlx, MLX_KEY_ESCAPE))
 		clean_exit(c);
 	else if (mlx_is_key_down(c->mlx, MLX_KEY_W))
-		movement(c, 'w');
+		movement(c, 'w', 0, 0);
 	else if (mlx_is_key_down(c->mlx, MLX_KEY_A))
-		movement(c, 'a');
+		movement(c, 'a', 0, 0);
 	else if (mlx_is_key_down(c->mlx, MLX_KEY_S))
-		movement(c, 's');
+		movement(c, 's', 0, 0);
 	else if (mlx_is_key_down(c->mlx, MLX_KEY_D))
-		movement(c, 'd');	
-	else if (mlx_is_key_down(c->mlx, MLX_KEY_F))
-		print_wall_info(c);
+		movement(c, 'd', 0, 0);	
 	else if (mlx_is_key_down(c->mlx, MLX_KEY_LEFT))
 		rotation(c, 'l');
 	else if (mlx_is_key_down(c->mlx, MLX_KEY_RIGHT))
 		rotation(c, 'r');
 }
 
+// --------for debugging---------
+
+// 	else if (mlx_is_key_down(c->mlx, MLX_KEY_F))
+// 		print_wall_info(c);
+//
+// #include <stdio.h>
+// void	print_wall_info(t_cub3d *c)
+// {
+// 	int		x;
+// 	double	ray_dir_x;
+// 	double	ray_dir_y;
+	
+// 	printf("\n--- wall info ---\n");
+	
+// 	x = 0;
+// 	while (x < WIDTH)
+// 	{
+// 		calculate_ray_direction(c, x, &ray_dir_x, &ray_dir_y);
+// 		perform_dda(c, ray_dir_x, ray_dir_y);
+// 		printf("ray %d: wall x/y (%d,%d), distance: %.2f, height: %d pixels (y: %d to %d)\n", 
+// 			x, c->ray.map_x, c->ray.map_y, c->ray.wall_dist, 
+// 			c->ray.line_height, c->ray.draw_start, c->ray.draw_end);
+//	
+// 		x += WIDTH / 11;
+// 	}
+// 	printf("------------\n");
+// }
