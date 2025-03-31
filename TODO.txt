@@ -33,14 +33,14 @@ ok	6)	draw vertical strips based on calculations
 
 render environment
 ok	1)	since y=0 is at top, start with ceiling
-	2)	implement textures for different directions (NSEW)
-	3)	find a way to scale textures
-	4)	draw floor
+ok	2)	implement textures for different directions (NSEW)
+ok	3)	find a way to scale textures
+ok	4)	draw floor
 
 implement player movement
 ok	1)	WASD for movement
 		player.pos = player.pos + (player.dir * speed)
 		something like this, so we dont move in lightspeed
-	2)	arrow keys for rotation
+ok	2)	arrow keys for rotation
 		i think this will be harder than movement
 ok	3)	put in wall collision

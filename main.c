@@ -6,7 +6,7 @@
 /*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:46 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/09 07:21:15 by christian        ###   ########.fr       */
+/*   Updated: 2025/03/31 05:28:41 by christian        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ char **test_map(void)
 {
 	char **map;
 
-	map = malloc(sizeof(char *) * 7);
+	map = malloc(sizeof(char *) * 9);
 	if (!map)
 		return (NULL);
-	map[0] = ft_strdup("111111");
-	map[1] = ft_strdup("100001");
-	map[2] = ft_strdup("101001");
-	map[3] = ft_strdup("100001");
-	map[4] = ft_strdup("100001");
-	map[5] = ft_strdup("111111");
+	map[0] = ft_strdup("11111111");
+	map[1] = ft_strdup("10000001");
+	map[2] = ft_strdup("10001001");
+	map[3] = ft_strdup("10001001");
+	map[4] = ft_strdup("11000001");
+	map[5] = ft_strdup("11111111");
 	map[6] = NULL;
 	return (map);
 }
@@ -49,8 +49,8 @@ void	init_player(t_player *player)
 	player->plane_x = 0.66;
 	player->plane_y = 0.0;
 	
-	player->speed = 0.01;
-	player->r_speed = 0.07;
+	player->speed = 0.03;
+	player->r_speed = 0.05;
 }
 
 void	init_map(t_cub3d *c)
@@ -86,7 +86,21 @@ void	init_to_winit(t_cub3d *c)
 	init_map(c);
 	if (!c->mlx || !c->img || !c->test_map)
 		exit(EXIT_FAILURE);
+	load_textures(c);
 }
+
+// void	init_to_winit(t_cub3d *c)
+// {
+// 	c->line_pos = 100;
+// 	c->direction = 1;
+// 	c->line_length = 200;
+// 	init_player(&c->player);
+// 	c->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
+// 	c->img = mlx_new_image(c->mlx, WIDTH, HEIGHT);
+// 	init_map(c);
+// 	if (!c->mlx || !c->img || !c->test_map)
+// 		exit(EXIT_FAILURE);
+// }
 
 
 int	main()

@@ -6,7 +6,7 @@
 #    By: christian <christian@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:15:17 by candrese          #+#    #+#              #
-#    Updated: 2025/03/08 22:07:37 by christian        ###   ########.fr        #
+#    Updated: 2025/03/31 05:05:01 by christian        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ SRCS = main.c \
 	execution/controls.c \
 	execution/dda.c \
 	execution/rays.c \
+	execution/textures.c \
+	execution/draw_vertical_line.c \
 	execution/execution.c
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
