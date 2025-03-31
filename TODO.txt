@@ -2,6 +2,8 @@
 
 this is the guide i am following: (i found it the most easy to follow so far)
 https://hackmd.io/@nszl/H1LXByIE2#Introduction
+https://medium.com/@rtailidounia/raycasting-in-cub3d-42-network-project-a-practical-tutorial-using-vectors-68eeb16b3de2
+(for math in more detail)
 
 TODO for juidxin : 
 move your lazy albanian ass and do the parsing <3
@@ -26,19 +28,19 @@ ok	1)	calculate ray position and direction
 ok	2)	learn more about DDA
 ok	3)	implement DDA
 ok	4)	calculate wall distances
-	5)	wall heights
-	6)	draw vertical strips based on calculations
+ok	5)	wall heights
+ok	6)	draw vertical strips based on calculations
 
 render environment
-	1)	since y=0 is at top, start with ceiling
-	2)	implement textures for different directions (NSEW)
-	3)	find a way to scale textures
-	4)	draw floor
+ok	1)	since y=0 is at top, start with ceiling
+ok	2)	implement textures for different directions (NSEW)
+ok	3)	find a way to scale textures
+ok	4)	draw floor
 
 implement player movement
 ok	1)	WASD for movement
 		player.pos = player.pos + (player.dir * speed)
 		something like this, so we dont move in lightspeed
-	2)	arrow keys for rotation
+ok	2)	arrow keys for rotation
 		i think this will be harder than movement
-	3)	put in wall collision
+ok	3)	put in wall collision

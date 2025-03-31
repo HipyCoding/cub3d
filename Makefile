@@ -3,16 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: christian <christian@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:15:17 by candrese          #+#    #+#              #
-#    Updated: 2025/03/31 00:12:31 by jidrizi          ###   ########.fr        #
+#    Updated: 2025/03/31 05:05:01 by christian        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 CFLAGS = -Wall -Wextra -Werror -g3 
 
 INCLUDES_DIR = includes
@@ -25,9 +24,12 @@ SRCS = main.c \
 	execution/clean.c \
 	execution/controls.c \
 	execution/dda.c \
-	execution/execution.c \
 	parsing/parse.c parsing/misc.c parsing/get_map.c parsing/check_elements.c \
-	parsing/flood_fill.c parsing/misc2.c\
+	parsing/flood_fill.c\
+	execution/rays.c \
+	execution/textures.c \
+	execution/draw_vertical_line.c \
+	execution/execution.c
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 

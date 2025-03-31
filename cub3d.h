@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:49 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/02 22:12:24 by candrese         ###   ########.fr       */
+/*   Updated: 2025/03/31 05:34:49 by christian        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,20 @@
 #  define WIDTH 1000
 # endif
 
-# define RED 0xFF0000FF
+typedef struct s_texture
+{
+	mlx_texture_t	*north;
+	mlx_texture_t	*south;
+	mlx_texture_t	*east;
+	mlx_texture_t	*west;
+	uint32_t	*n_pixels;
+	uint32_t	*s_pixels;
+	uint32_t	*e_pixels;
+	uint32_t	*w_pixels;
+	int		tex_width;
+	int		tex_height;
+}	t_texture;
+
 
 typedef struct s_player
 {
@@ -43,6 +56,7 @@ typedef struct s_player
 	double	plane_x;
 	double	plane_y;
 	double	speed;
+	double	r_speed;
 }	t_player;
 
 
@@ -95,22 +109,34 @@ typedef struct s_cub3d
 	
 	t_player		player;
 	t_ray			ray;
+	t_texture		texture;
 }	t_cub3d;
 
-void	clean_exit(t_cub3d *c);
+void	main_loop(void *param);
 
+// cleanup
+void	clean_exit(t_cub3d *c);
+void	clean_textures(t_cub3d *c);
+
+// key input
 void	key_input(t_cub3d *c);
 
-void	main_loop(void *param);
-void	put_cub3d(t_cub3d *c);
-void	draw_line(t_cub3d *c, int x1, int y1, int x2, int y2, uint32_t color);
-
+// digital differential algorithm and calculations
 void	perform_dda(t_cub3d *c, double ray_dir_x, double ray_dir_y);
-
 void	calculate_wall_height(t_cub3d *c);
-char	**test_map(void);
 void	calculate_ray_direction(t_cub3d *c, int x, double *ray_dir_x, double *ray_dir_y);
+
+// textures and vertical drawing
+void	load_textures(t_cub3d *c);
+void	draw_textured_column(t_cub3d *c, int x);
+void	draw_vertical_line(t_cub3d *c, int x, mlx_texture_t *texture, int tex_x);
+void	draw_3d_rays(t_cub3d *c);
+
+// for building, might use if we implement minimap bonus
+char	**test_map(void);
+void	draw_rays(t_cub3d *c, int square_size);
 void	draw_minimap(t_cub3d *c);
+void	draw_line(t_cub3d *c, int x1, int y1, int x2, int y2, uint32_t color);
 void	draw_rectangle(t_cub3d *c, int x, int y, int width, int height, uint32_t color);
 
 #endif
