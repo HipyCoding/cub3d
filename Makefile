@@ -12,7 +12,7 @@
 
 NAME = cub3d
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 
 
 INCLUDES_DIR = includes
 OBJ_DIR = bin
@@ -24,6 +24,8 @@ SRCS = main.c \
 	execution/clean.c \
 	execution/controls.c \
 	execution/dda.c \
+	parsing/parse.c parsing/misc.c parsing/get_map.c parsing/check_elements.c \
+	parsing/flood_fill.c\
 	execution/rays.c \
 	execution/textures.c \
 	execution/draw_vertical_line.c \
@@ -41,6 +43,10 @@ MLX = $(MLX_BUILD)/libmlx42.a
 FRAMEWORKS = -framework Cocoa -framework OpenGL -framework IOKit
 
 all: $(NAME)
+
+./includes/eugenelibft/libft.a:
+	@git submodule update --init ./includes/eugenelibft
+	@make -C ./includes/eugenelibft
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
@@ -62,10 +68,8 @@ $(MLX): | $(INCLUDES_DIR)
 	@mkdir -p $(MLX_BUILD)
 	@cd $(MLX_DIR) && cmake -B ../mlx_build && cmake --build ../mlx_build -j4
 
-$(NAME): $(LIBFT) $(MLX) $(OBJS)
-	$(CC) $(OBJS) $(CFLAGS) -L$(LIBFT_DIR) -lft -L$(MLX_BUILD) -lmlx42 -L$(shell brew --prefix glfw)/lib -lglfw $(FRAMEWORKS) -o $(NAME)
-	
-#$(CC) $(OBJS) $(CFLAGS) -L$(LIBFT_DIR) -lft -L$(MLX_BUILD) -lmlx42 -lglfw $(FRAMEWORKS) -o $(NAME)
+$(NAME): ./includes/eugenelibft/libft.a $(LIBFT) $(MLX) $(OBJS)
+	$(CC) $(OBJS) ./includes/eugenelibft/libft.a $(CFLAGS) -L$(LIBFT_DIR) -lft -L$(MLX_BUILD) -lmlx42 -lglfw $(FRAMEWORKS) -o $(NAME)
 
 clean:
 	@rm -rf $(OBJ_DIR)
