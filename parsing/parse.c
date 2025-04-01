@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:06:32 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/31 17:49:09 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/04/01 09:19:51 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
+#include "../cub3d.h"
 
 static int	check_cub(char *map_dot_cub)
 {
@@ -55,7 +56,7 @@ static char	**make_map_arr(char *map, size_t *map_height)
 	return (map_arr);
 }
 
-char	**parse(int argc, char **argv)
+char	**parse(int argc, char **argv, t_cub3d *c)
 {
 	static t_elements	elements;
 	char				*map_string;
@@ -63,6 +64,7 @@ char	**parse(int argc, char **argv)
 	char				*free_map_string;
 	size_t				map_height;
 
+	ft_memset(&c->texture, 0, sizeof(t_texture));
 	if (argc != 2)
 		return (error_msg("Number of arguments isn't correct\n"), NULL);
 	if (check_cub(argv[1]) == EXIT_FAILURE)
@@ -71,13 +73,40 @@ char	**parse(int argc, char **argv)
 	if (!map_string)
 		return (NULL);
 	free_map_string = map_string;
-	if (check_elements(&map_string, &elements) == EXIT_FAILURE)
+	if (check_elements(&map_string, &elements, &c->texture) == EXIT_FAILURE)
 		return (ft_free_and_null((void **)&free_map_string), NULL);
 	if (check_map_characters(map_string) == EXIT_FAILURE)
 		return (ft_free_and_null((void **)&free_map_string), NULL);
 	map_array = make_map_arr(map_string, &map_height);
 	ft_free_and_null((void **)&free_map_string);
-	if (flood_fill_check(map_array, map_height) == EXIT_FAILURE)
-		return (error_msg("Fail on flood fill bruh\n"), NULL);
+	if (flood_fill_check(map_array, map_height, &c->player) == EXIT_FAILURE)
+		return (error_msg("Fail on flood fill\n"), NULL);
+		//print_texture_info(&c->texture);
 	return (map_array);
 }
+
+// void	print_2d_array(char **arr, int fd, char *str)
+// {
+// 	int	i;
+	
+// 	if (!arr)
+// 	{
+// 		ft_putstr_fd("Array is NULL\n", fd);
+// 		return;
+// 	}
+	
+// 	i = 0;
+// 	printf("------2D Array Contents in %s------\n", str);
+// 	while (arr[i])
+// 	{
+// 		ft_putstr_fd("[", fd);
+// 		ft_putnbr_fd(i, fd);
+// 		ft_putstr_fd("]: ", fd);
+// 		ft_putstr_fd(arr[i], fd);
+// 		ft_putchar_fd('\n', fd);
+// 		i++;
+// 	}
+// 	ft_putstr_fd("Total rows: ", fd);
+// 	ft_putnbr_fd(i, fd);
+// 	ft_putchar_fd('\n', fd);
+// }

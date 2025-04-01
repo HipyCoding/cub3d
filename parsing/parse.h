@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:08:25 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/31 17:48:57 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/04/01 06:36:27 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef PARSE_H
 # define PARSE_H
@@ -23,7 +22,8 @@
 
 //LOCAL LIBS
 # include "includes/eugenelibft/libft.h"
-# include "includes/MLX42/include/MLX42/MLX42.h"
+# include "../includes/MLX42/include/MLX42/MLX42.h"
+# include "../cub3d.h"
 
 //MACROS
 
@@ -52,17 +52,21 @@ enum e_enum_elements
 	C
 };
 
+void	print_2d_array(char **arr, int fd, char *s);
+
 //PROTOTYPES
 
+int		get_num(char **map);
+void	handle_color(char **map, t_texture *texture, int instance);
 void	error_msg(char *msg);
-char	**parse(int argc, char **argv);
+char	**parse(int argc, char **argv, t_cub3d *c);
 char	*get_map_whole(char *arg1);
-int		check_elements(char **map, t_elements *elements);
+int		check_elements(char **map, t_elements *elements, t_texture *texture);
 int		break_or_error(t_elements *elements, int purpose);
 int		check_map_characters(char *map);
 int		get_number_of_lines(char *map);
 void	make_map_square(char **map_arr);
-int		flood_fill_check(char **map_arr, size_t map_height);
+int		flood_fill_check(char **map_arr, size_t map_height, t_player *player);
 char	**copy_array(char **map_arr);
 void	free_array_copy(char **map_arr);
 
