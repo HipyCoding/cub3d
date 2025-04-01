@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
+/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:49 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/31 05:34:49 by christian        ###   ########.fr       */
+/*   Updated: 2025/04/01 08:56:41 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stddef.h>
 # include <stdlib.h>
+# include <stdio.h>
 # include <math.h>
 # include "includes/MLX42/include/MLX42/MLX42.h"
 # include "includes/libft/libft.h"
@@ -34,12 +35,18 @@ typedef struct s_texture
 	mlx_texture_t	*south;
 	mlx_texture_t	*east;
 	mlx_texture_t	*west;
-	uint32_t	*n_pixels;
-	uint32_t	*s_pixels;
-	uint32_t	*e_pixels;
-	uint32_t	*w_pixels;
-	int		tex_width;
-	int		tex_height;
+	char			*no_texture_path;
+	char			*so_texture_path;
+	char			*we_texture_path;
+	char			*ea_texture_path;
+	uint32_t		*n_pixels;
+	uint32_t		*s_pixels;
+	uint32_t		*e_pixels;
+	uint32_t		*w_pixels;
+	uint32_t		f;
+	uint32_t		c;
+	int				tex_width;
+	int				tex_height;
 }	t_texture;
 
 
@@ -47,6 +54,7 @@ typedef struct s_player
 {
 	double	pos_x;
 	double	pos_y;
+	char	spawn_dir;
 
 	// direction vextor
 	double	dir_x;

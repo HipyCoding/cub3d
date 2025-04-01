@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: christian <christian@student.42.fr>        +#+  +:+       +#+         #
+#    By: candrese <candrese@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:15:17 by candrese          #+#    #+#              #
-#    Updated: 2025/03/31 05:05:01 by christian        ###   ########.fr        #
+#    Updated: 2025/04/01 06:29:56 by candrese         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS = main.c \
 	execution/dda.c \
 	parsing/parse.c parsing/misc.c parsing/get_map.c parsing/check_elements.c \
 	parsing/flood_fill.c\
+	parsing/parse_color.c\
 	execution/rays.c \
 	execution/textures.c \
 	execution/draw_vertical_line.c \
