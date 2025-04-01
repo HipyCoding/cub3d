@@ -3,30 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 22:07:16 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/31 17:21:50 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/04/01 04:28:54 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
+#include "../cub3d.h"
 
-static void	find_spawn(char **map_arr, size_t *x, size_t *y)
+static void	find_spawn(char **map_arr, size_t *x, size_t *y, t_player *player)
 {
-
-	while (map_arr[y[0]])
+	*y = 0;
+	while (map_arr[*y])
 	{
-		x[0] = 0;
-		while (map_arr[y[0]][x[0]]
-			&& map_arr[y[0]][x[0]] != 'N' && map_arr[y[0]][x[0]] != 'S'
-			&& map_arr[y[0]][x[0]] != 'E' && map_arr[y[0]][x[0]] != 'W')
-			x[0]++;
-		if (map_arr[y[0]][x[0]] == 'N' || map_arr[y[0]][x[0]] == 'S'
-				|| map_arr[y[0]][x[0]] == 'E' || map_arr[y[0]][x[0]] == 'W')
-			return ;
-		else if (map_arr[y[0]][x[0]] == '\0')
-			y[0]++;
+		*x = 0;
+		while (map_arr[*y][*x]
+			&& map_arr[*y][*x] != 'N' && map_arr[*y][*x] != 'S'
+			&& map_arr[*y][*x] != 'E' && map_arr[*y][*x] != 'W')
+			(*x)++;
+		
+		if (map_arr[*y][*x] == 'N' || map_arr[*y][*x] == 'S'
+				|| map_arr[*y][*x] == 'E' || map_arr[*y][*x] == 'W')
+		{
+			player->spawn_dir = map_arr[*y][*x];
+			player->pos_x = (double)*x + 0.5;
+			player->pos_y = (double)*y + 0.5;
+			return;
+		}
+		else if (map_arr[*y][*x] == '\0')
+			(*y)++;
 	}
 }
 
@@ -88,7 +95,7 @@ static int	flood_fill(char **copy, size_t x, size_t y, size_t map_height)
 }
 
 // used to check if the map is surrounded by walls
-int flood_fill_check(char **map_arr, size_t map_height)
+int flood_fill_check(char **map_arr, size_t map_height, t_player *player)
 {
 	char	**copy;
 	size_t	x;
@@ -97,7 +104,7 @@ int flood_fill_check(char **map_arr, size_t map_height)
 	x = 0;
 	y = 0;
 	copy = copy_array(map_arr);
-	find_spawn(copy, &x, &y);
+	find_spawn(copy, &x, &y, player);
 	copy[y][x] = '0';
 	if (flood_fill(copy, x, y, map_height) == EXIT_FAILURE)
 		return (free_array_copy(copy), EXIT_FAILURE);

@@ -3,43 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   check_elements.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:15:24 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/28 18:34:04 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/04/01 09:16:41 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
-// in each function whenever we have an error i set the map to NULL
+#include "../cub3d.h"
 
-static void	handle_textures(char **map)
+void assign_texture_path(int instance, t_texture *texture, char *path)
+{
+if (instance == NO)
+texture->no_texture_path = path;
+else if (instance == SO)
+texture->so_texture_path = path;
+else if (instance == WE)
+texture->we_texture_path = path;
+else if (instance == EA)
+texture->ea_texture_path = path;
+}
+
+static void handle_textures(char **map, t_texture *texture, int instance)
 {
 	char	*path;
 	int		i;
 	int		fd;
 
 	i = 0;
-	while (map[0][i] && map[0][i] != ' ' && map[0][i] != '\t'
-			&& map[0][i] != '\n')
+	while (map[0][i] && map[0][i] != ' ' && map[0][i] != '\t' && map[0][i] != '\n')
 		i++;
 	path = ft_substr(map[0], 0, i);
-	// add this back later
-	// if (ft_strncmp(&path[ft_strlen(path) - 4], ".png", 4) != 0)
-	// {
-	// 	map[0] = NULL;
-	// 	return (ft_free_and_null((void **)&path), (void)0);
-	// }
+	if (ft_strlen(path) < 4 || ft_strncmp(&path[ft_strlen(path) - 4], ".png", 4) != 0)
+	{
+		map[0] = NULL;
+		return (ft_free_and_null((void **)&path), (void)0);
+	}
 	fd = open(path, O_RDONLY);
-	ft_free_and_null((void **)&path);
-	// add this back later
-	// if (fd < 0)
-	// 	map[0] = NULL;
-	map[0] += i;
+	if (fd < 0)
+	{
+		map[0] = NULL;
+		return (ft_free_and_null((void **)&path), (void)0);
+	}
 	close(fd);
+	assign_texture_path(instance, texture, path);
+	map[0] += i;
 }
 
-static int	get_num(char **map)
+int	get_num(char **map)
 {
 	int		num;
 	int		i;
@@ -66,35 +78,8 @@ static int	get_num(char **map)
 	return (ft_free_and_null((void **)&sub_s), num);
 }
 
-static void	handle_color(char **map)
-{
-	int	value;
-	int	num;
-
-	value = 1;
-	while (value <= 3 && map[0])
-	{
-		num = get_num(map);
-		if (!(num >= 0 && num <= 255))
-		{
-			map[0] = NULL;
-			return ;
-		}
-		while (value < 3 && (map[0][0] == ' '
-			|| map[0][0] == '\t' || map[0][0] == '\n'))
-			map[0]++;
-		if (value < 3 && map[0][0] == ',')
-			map[0]++;
-		else if (value < 3 && map[0][0] != ',')
-		{
-			map[0] = NULL;
-			return ;
-		}
-		value++;
-	}
-}
-
-static void	handle_element(char **map, t_elements *elements, int instance)
+static void	handle_element(char **map, t_elements *elements, int instance,
+			t_texture *texture)
 {
 	if (instance == NO)
 	elements->no_count++;
@@ -109,31 +94,31 @@ static void	handle_element(char **map, t_elements *elements, int instance)
 	else if (instance == C)
 	elements->c_count++;
 	if (instance == F || instance == C)
-		return (map[0]++, handle_color(map), (void)0);
+		return (map[0]++, handle_color(map, texture, instance), (void)0);
 	else
 		map[0] += 2;
 	while (map[0][0] && (map[0][0] == ' ' || map[0][0] == '\t'
 		|| map[0][0] == '\n'))
 		map[0]++;
-	handle_textures(map);
+	handle_textures(map, texture, instance);
 	}
 
-int	check_elements(char **map, t_elements *elements)
+int	check_elements(char **map, t_elements *elements, t_texture *texture)
 {
 	while (map[0] && map[0][0])
 	{
 		if (map[0][0] == 'N' && map[0][1] == 'O')
-			handle_element(map, elements, NO);
+			handle_element(map, elements, NO, texture);
 		else if (map[0][0] == 'S' && map[0][1] == 'O')
-			handle_element(map, elements, SO);
+			handle_element(map, elements, SO, texture);
 		else if (map[0][0] == 'W' && map[0][1] == 'E')
-			handle_element(map, elements, WE);
+			handle_element(map, elements, WE, texture);
 		else if (map[0][0] == 'E' && map[0][1] == 'A')
-			handle_element(map, elements, EA);
+			handle_element(map, elements, EA, texture);
 		else if (map[0][0] == 'F')
-			handle_element(map, elements, F);
+			handle_element(map, elements, F, texture);
 		else if (map[0][0] == 'C')
-			handle_element(map, elements, C);
+			handle_element(map, elements, C, texture);
 		if (break_or_error(elements, BREAK) == 1 && map[0])
 			break ;
 		if (map[0] && map[0][0]!= ' ' && map[0][0]!= '\t' && map[0][0]!= '\n')
