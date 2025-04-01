@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
+/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 19:50:03 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/31 04:50:29 by christian        ###   ########.fr       */
+/*   Updated: 2025/04/01 09:13:48 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	rotation(t_cub3d *c, char a)
 
 	temp_dir = c->player.dir_x;
 	temp_plane = c->player.plane_x;
-	if(a == 'l')
+	if(a == 'r')
 		rot = 1.0;
 	else
 		rot = -1.0;

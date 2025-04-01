@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
+/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 05:10:05 by christian         #+#    #+#             */
-/*   Updated: 2025/03/31 05:55:43 by christian        ###   ########.fr       */
+/*   Updated: 2025/04/01 09:10:49 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	load_textures(t_cub3d *c)
 {
-	c->texture.north = mlx_load_png("./textures/north.png");
-	c->texture.south = mlx_load_png("./textures/south.png");
-	c->texture.east = mlx_load_png("./textures/east.png");
-	c->texture.west = mlx_load_png("./textures/west.png");
+	c->texture.north = mlx_load_png(c->texture.no_texture_path);
+	c->texture.south = mlx_load_png(c->texture.so_texture_path);
+	c->texture.east = mlx_load_png(c->texture.ea_texture_path);
+	c->texture.west = mlx_load_png(c->texture.we_texture_path);
 	if (!c->texture.north || !c->texture.south || 
 		!c->texture.east || !c->texture.west)
 	{
