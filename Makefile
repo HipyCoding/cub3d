@@ -6,7 +6,7 @@
 #    By: candrese <candrese@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:15:17 by candrese          #+#    #+#              #
-#    Updated: 2025/04/01 06:29:56 by candrese         ###   ########.fr        #
+#    Updated: 2025/04/01 15:52:22 by candrese         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,16 @@ SRCS = main.c \
 	execution/clean.c \
 	execution/controls.c \
 	execution/dda.c \
-	parsing/parse.c parsing/misc.c parsing/get_map.c parsing/check_elements.c \
-	parsing/flood_fill.c\
-	parsing/parse_color.c\
 	execution/rays.c \
 	execution/textures.c \
 	execution/draw_vertical_line.c \
-	execution/execution.c
+	execution/execution.c \
+	parsing/parse.c \
+	parsing/misc.c \
+	parsing/get_map.c \
+	parsing/check_elements.c \
+	parsing/flood_fill.c \
+	parsing/parse_color.c
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 

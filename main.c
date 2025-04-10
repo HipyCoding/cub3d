@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:46 by candrese          #+#    #+#             */
-/*   Updated: 2025/04/01 06:52:43 by candrese         ###   ########.fr       */
+/*   Updated: 2025/04/01 17:43:30 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,53 @@ void	init_to_winit(t_cub3d *c)
 	load_textures(c);
 }
 
+void print_texture_info(t_texture *texture)
+{
+    // Print floor color if available
+    if (texture->f)
+        printf("Floor color (RGBA): 0x%08X\n", texture->f);
+    else
+        printf("Floor color: Not set\n");
+        
+    // Print ceiling color if available
+    if (texture->c)
+        printf("Ceiling color (RGBA): 0x%08X\n", texture->c);
+    else
+        printf("Ceiling color: Not set\n");
+    
+    // Print the RGB components of the floor color
+    if (texture->f)
+    {
+        uint32_t color = texture->f;
+        int r = (color >> 24) & 0xFF;
+        int g = (color >> 16) & 0xFF;
+        int b = (color >> 8) & 0xFF;
+        int a = color & 0xFF;
+        printf("Floor RGB: (%d, %d, %d, %d)\n", r, g, b, a);
+    }
+    
+    // Print the RGB components of the ceiling color
+    if (texture->c)
+    {
+        uint32_t color = texture->c;
+        int r = (color >> 24) & 0xFF;
+        int g = (color >> 16) & 0xFF;
+        int b = (color >> 8) & 0xFF;
+        int a = color & 0xFF;
+        printf("Ceiling RGB: (%d, %d, %d, %d)\n", r, g, b, a);
+    }
+    
+    // Print texture paths
+    printf("North texture path: %s\n", 
+           texture->no_texture_path ? texture->no_texture_path : "Not set");
+    printf("South texture path: %s\n", 
+           texture->so_texture_path ? texture->so_texture_path : "Not set");
+    printf("West texture path: %s\n", 
+           texture->we_texture_path ? texture->we_texture_path : "Not set");
+    printf("East texture path: %s\n", 
+           texture->ea_texture_path ? texture->ea_texture_path : "Not set");
+}
+
 int	main(int argc, char **argv)
 {
 	t_cub3d	c;
@@ -140,15 +187,8 @@ int	main(int argc, char **argv)
 
 // 	// atexit(leaks);
 	c.test_map = parse(argc, argv, &c);
-	printf("after parse \n");
-	// if (args(ac, argv, &c))
-	// {
-	// 	return (EXIT_FAILURE);
-	// }
 	init_to_winit(&c);
-	printf("after init_to_winit \n");
-	// mlx_key_hook(c.mlx, &key_hook, &c);
-	// ptrototype: mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param)
+	print_texture_info(&c.texture);
 	mlx_loop_hook(c.mlx, &main_loop, &c);
 	mlx_loop(c.mlx);
 	// Clean up
