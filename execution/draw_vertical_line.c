@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_vertical_line.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 05:02:00 by christian         #+#    #+#             */
-/*   Updated: 2025/04/01 09:07:46 by candrese         ###   ########.fr       */
+/*   Updated: 2025/04/11 19:26:07 by christian        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void draw_ceiling(t_cub3d *c, int x, int draw_start)
 	y = 0;
 	while (y < draw_start)
 	{
-		mlx_put_pixel(c->img, x, y, 0x808080FF);
+		mlx_put_pixel(c->img, x, y, (int)c->texture.c);
 		y++;
 	}
 }
@@ -31,7 +31,7 @@ static void draw_floor(t_cub3d *c, int x, int draw_end)
 	y = draw_end;
 	while (y < HEIGHT)
 	{
-		mlx_put_pixel(c->img, x, y, 0x404040FF);
+		mlx_put_pixel(c->img, x, y, (int)c->texture.f);
 		y++;
 	}
 }
