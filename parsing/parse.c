@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:06:32 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/04/01 09:19:51 by candrese         ###   ########.fr       */
+/*   Updated: 2025/04/11 19:32:03 by christian        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,32 +81,5 @@ char	**parse(int argc, char **argv, t_cub3d *c)
 	ft_free_and_null((void **)&free_map_string);
 	if (flood_fill_check(map_array, map_height, &c->player) == EXIT_FAILURE)
 		return (error_msg("Fail on flood fill\n"), NULL);
-		//print_texture_info(&c->texture);
 	return (map_array);
 }
-
-// void	print_2d_array(char **arr, int fd, char *str)
-// {
-// 	int	i;
-	
-// 	if (!arr)
-// 	{
-// 		ft_putstr_fd("Array is NULL\n", fd);
-// 		return;
-// 	}
-	
-// 	i = 0;
-// 	printf("------2D Array Contents in %s------\n", str);
-// 	while (arr[i])
-// 	{
-// 		ft_putstr_fd("[", fd);
-// 		ft_putnbr_fd(i, fd);
-// 		ft_putstr_fd("]: ", fd);
-// 		ft_putstr_fd(arr[i], fd);
-// 		ft_putchar_fd('\n', fd);
-// 		i++;
-// 	}
-// 	ft_putstr_fd("Total rows: ", fd);
-// 	ft_putnbr_fd(i, fd);
-// 	ft_putchar_fd('\n', fd);
-// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 05:10:05 by christian         #+#    #+#             */
-/*   Updated: 2025/04/01 09:10:49 by candrese         ###   ########.fr       */
+/*   Updated: 2025/04/11 19:35:21 by christian        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,16 @@ void	load_textures(t_cub3d *c)
 
 static mlx_texture_t *select_wall_texture(t_cub3d *c)
 {
-	// x-side wall
 	if (c->ray.side == 0)
 	{
-		// if ray moving east = west facing
 		if (c->ray.step_x > 0)
 			return (c->texture.east);
-		// if ray moving west = east facing
 		else
 			return (c->texture.west);
 	}
-	// y-side wall
 	{
-		// if ray moving south = north facing
 		if (c->ray.step_y > 0)
 			return (c->texture.south);
-		// if ray moving north = south facing
 		else
 			return (c->texture.north);
 	}
@@ -54,7 +48,7 @@ static mlx_texture_t *select_wall_texture(t_cub3d *c)
 // x coordinate where ray hits wall
 static double wall_xx(t_cub3d *c)
 {
-	double wall_x;
+	double	wall_x;
 	
 	if (c->ray.side == 0)
 		wall_x = c->player.pos_y + c->ray.wall_dist * c->ray.dir_y;
@@ -67,10 +61,9 @@ static double wall_xx(t_cub3d *c)
 // x coordinate of texture
 static int texture_x(t_cub3d *c, double wall_x, mlx_texture_t *texture)
 {
-	int tex_x;
+	int		tex_x;
 	
 	tex_x = (int)(wall_x * texture->width);
-	// flip x coordinate if needed
 	if ((c->ray.side == 0 && c->ray.dir_x > 0) || 
 		(c->ray.side == 1 && c->ray.dir_y < 0))
 		tex_x = texture->width - tex_x - 1;
@@ -79,9 +72,9 @@ static int texture_x(t_cub3d *c, double wall_x, mlx_texture_t *texture)
 
 void draw_textured_column(t_cub3d *c, int x)
 {
-	mlx_texture_t *texture;
-	double wall_x;
-	int tex_x;
+	mlx_texture_t	*texture;
+	double			wall_x;
+	int				tex_x;
 	
 	texture = select_wall_texture(c);
 	wall_x = wall_xx(c);

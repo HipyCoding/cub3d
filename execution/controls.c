@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 19:50:03 by candrese          #+#    #+#             */
-/*   Updated: 2025/04/01 09:13:48 by candrese         ###   ########.fr       */
+/*   Updated: 2025/04/11 19:37:22 by christian        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 bool	wall_check(t_cub3d *c, double x, double y)
 {
-	int	map_x;
-	int	map_y;
+	int		map_x;
+	int		map_y;
 
 	map_x = x;
 	map_y = y;
@@ -24,7 +24,6 @@ bool	wall_check(t_cub3d *c, double x, double y)
 		return (true);
 	if (c->test_map[map_y][map_x] == '1')
 		return (true);
-	
 	return (false);
 }
 
@@ -40,14 +39,10 @@ void	rotation(t_cub3d *c, char a)
 		rot = 1.0;
 	else
 		rot = -1.0;
-	
-	// direction vector matrix
 	c->player.dir_x = c->player.dir_x * cos(c->player.r_speed * rot)
 	- c->player.dir_y * sin(c->player.r_speed * rot);
 	c->player.dir_y = temp_dir * sin(c->player.r_speed * rot)
 	+ c->player.dir_y * cos(c->player.r_speed * rot);
-	
-	// plane matrix
 	c->player.plane_x = c->player.plane_x * cos(c->player.r_speed * rot)
 	- c->player.plane_y * sin(c->player.r_speed * rot);
 	c->player.plane_y = temp_plane * sin(c->player.r_speed * rot)

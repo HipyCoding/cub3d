@@ -3,37 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   misc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:21:11 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/31 17:20:04 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/04/11 19:32:44 by christian        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
-
-// !!!!! FOR DEBUGGING PURPOSES ONLY !!!!!
-// void	print_map(char **map_arr)
-// {
-// 	while (*map_arr != NULL)
-// 	{
-// 		while (**map_arr)
-// 		{
-// 			if (**map_arr && **map_arr == '0')
-// 				printf("\033[1;32m%c", **map_arr);
-// 			else if (**map_arr && **map_arr == 'X')
-// 				printf("\033[1;31m%c", **map_arr);
-// 			else if (**map_arr && **map_arr == '1')
-// 				printf("\033[1;34m%c", **map_arr);
-// 			else
-// 				printf("\033[0m%c", **map_arr);
-// 			printf("\033[0m");
-// 			map_arr[0]++;
-// 		}
-// 		printf("\n");
-// 		map_arr++;
-// 	}
-// }
 
 void	error_msg(char *msg)
 {
@@ -41,7 +18,6 @@ void	error_msg(char *msg)
 	write(STDERR_FILENO, msg, ft_strlen(msg));
 }
 
-// yes it looks stupid but i use this to get around norm
 int break_or_error(t_elements *elements, int purpose)
 {
 	if (purpose == BREAK)
@@ -130,5 +106,27 @@ void	make_map_square(char **map_arr)
 		spaces_2_X(map_arr[i]);
 		i++;
 	}
-	// print_map(map_arr); remove this later
 }
+
+// !!!!! FOR DEBUGGING PURPOSES ONLY !!!!!
+// void	print_map(char **map_arr)
+// {
+// 	while (*map_arr != NULL)
+// 	{
+// 		while (**map_arr)
+// 		{
+// 			if (**map_arr && **map_arr == '0')
+// 				printf("\033[1;32m%c", **map_arr);
+// 			else if (**map_arr && **map_arr == 'X')
+// 				printf("\033[1;31m%c", **map_arr);
+// 			else if (**map_arr && **map_arr == '1')
+// 				printf("\033[1;34m%c", **map_arr);
+// 			else
+// 				printf("\033[0m%c", **map_arr);
+// 			printf("\033[0m");
+// 			map_arr[0]++;
+// 		}
+// 		printf("\n");
+// 		map_arr++;
+// 	}
+// }

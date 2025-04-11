@@ -6,13 +6,13 @@
 #    By: christian <christian@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:15:17 by candrese          #+#    #+#              #
-#    Updated: 2025/04/11 19:15:46 by christian        ###   ########.fr        #
+#    Updated: 2025/04/11 19:28:25 by christian        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 INCLUDES_DIR = includes
 OBJ_DIR = bin
 INCLUDES = -I.
@@ -38,7 +38,6 @@ MLX_DIR = $(INCLUDES_DIR)/MLX42
 MLX_BUILD = $(INCLUDES_DIR)/mlx_build
 MLX = $(MLX_BUILD)/libmlx42.a
 
-# Add GLFW path
 GLFW_PATH = $(shell brew --prefix glfw 2>/dev/null || echo "/usr/local")
 GLFW_FLAGS = -L$(GLFW_PATH)/lib -lglfw
 

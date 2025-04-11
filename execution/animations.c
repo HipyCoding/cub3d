@@ -6,7 +6,7 @@
 /*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:32:15 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/31 05:38:27 by christian        ###   ########.fr       */
+/*   Updated: 2025/04/11 19:38:03 by christian        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ void	calculate_ray_direction(t_cub3d *c, int x, double *ray_dir_x, double *ray_d
 
 void	calculate_wall_height(t_cub3d *c)
 {
-	// height of the line
 	c->ray.line_height = (int)(HEIGHT / c->ray.wall_dist);
-	
-	// lowest and highest pixel to fill
 	c->ray.draw_start = -c->ray.line_height / 2 + HEIGHT / 2;
 	if (c->ray.draw_start < 0)
 		c->ray.draw_start = 0;

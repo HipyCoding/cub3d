@@ -6,7 +6,7 @@
 /*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 05:02:00 by christian         #+#    #+#             */
-/*   Updated: 2025/04/11 19:26:07 by christian        ###   ########.fr       */
+/*   Updated: 2025/04/11 19:36:17 by christian        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void draw_ceiling(t_cub3d *c, int x, int draw_start)
 {
-	int y;
+	int	y;
 
 	y = 0;
 	while (y < draw_start)
@@ -26,7 +26,7 @@ static void draw_ceiling(t_cub3d *c, int x, int draw_start)
 
 static void draw_floor(t_cub3d *c, int x, int draw_end)
 {
-	int y;
+	int	y;
 
 	y = draw_end;
 	while (y < HEIGHT)
@@ -52,11 +52,11 @@ static uint32_t get_texture_color(mlx_texture_t *texture, int tex_x, int tex_y)
 static void draw_textured_wall(t_cub3d *c, int x, mlx_texture_t *texture, 
 						int tex_x, int draw_start, int draw_end, int line_height)
 {
-	int y;
-	int tex_y;
-	double step;
-	double tex_pos;
-	uint32_t color;
+	int			y;
+	int			tex_y;
+	double		step;
+	double		tex_pos;
+	uint32_t	color;
 
 	step = (double)texture->height / line_height;
 	tex_pos = (draw_start - HEIGHT / 2 + line_height / 2) * step;
