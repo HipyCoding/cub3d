@@ -3,22 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: candrese <candrese@student.42.fr>          +#+  +:+       +#+         #
+#    By: christian <christian@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 13:15:17 by candrese          #+#    #+#              #
-#    Updated: 2025/04/01 15:52:22 by candrese         ###   ########.fr        #
+#    Updated: 2025/04/11 19:15:46 by christian        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 
-
+CFLAGS = -Wall -Wextra -Werror -g3
 INCLUDES_DIR = includes
 OBJ_DIR = bin
-
 INCLUDES = -I.
-
 SRCS = main.c \
 	execution/animations.c \
 	execution/clean.c \
@@ -34,61 +31,60 @@ SRCS = main.c \
 	parsing/check_elements.c \
 	parsing/flood_fill.c \
 	parsing/parse_color.c
-
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
-
-LIBFT_DIR = $(INCLUDES_DIR)/libft
-LIBFT = $(LIBFT_DIR)/libft.a
-
+EUGENELIBFT_DIR = $(INCLUDES_DIR)/eugenelibft
+EUGENELIBFT = $(EUGENELIBFT_DIR)/libft.a
 MLX_DIR = $(INCLUDES_DIR)/MLX42
 MLX_BUILD = $(INCLUDES_DIR)/mlx_build
 MLX = $(MLX_BUILD)/libmlx42.a
 
+# Add GLFW path
+GLFW_PATH = $(shell brew --prefix glfw 2>/dev/null || echo "/usr/local")
+GLFW_FLAGS = -L$(GLFW_PATH)/lib -lglfw
+
 FRAMEWORKS = -framework Cocoa -framework OpenGL -framework IOKit
 
-all: $(NAME)
+all: $(OBJ_DIR) $(NAME)
 
-./includes/eugenelibft/libft.a:
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)/execution
+	@mkdir -p $(OBJ_DIR)/parsing
+
+$(EUGENELIBFT):
 	@git submodule update --init ./includes/eugenelibft
 	@make -C ./includes/eugenelibft
 
 $(OBJ_DIR)/%.o: %.c
-	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(INCLUDES_DIR):
 	@mkdir -p $(INCLUDES_DIR)
-
-$(LIBFT): | $(INCLUDES_DIR)
-	@if [ ! -d "$(LIBFT_DIR)" ]; then \
-		git clone $(LIBFT_REPO) $(LIBFT_DIR); \
-	fi
-	@make -C $(LIBFT_DIR)
 
 $(MLX): | $(INCLUDES_DIR)
 	@if [ ! -d "$(MLX_DIR)" ]; then \
 		git clone https://github.com/codam-coding-college/MLX42.git $(MLX_DIR); \
 	fi
 	@mkdir -p $(MLX_BUILD)
-	@cd $(MLX_DIR) && cmake -B ../mlx_build && cmake --build ../mlx_build -j4
+	@cd $(MLX_BUILD) && cmake $(CURDIR)/$(MLX_DIR) && cmake --build . -j4
 
-$(NAME): ./includes/eugenelibft/libft.a $(LIBFT) $(MLX) $(OBJS)
-	$(CC) $(OBJS) ./includes/eugenelibft/libft.a $(CFLAGS) -L$(LIBFT_DIR) -lft -L$(MLX_BUILD) -lmlx42 -lglfw $(FRAMEWORKS) -o $(NAME)
+$(NAME): $(EUGENELIBFT) $(MLX) $(OBJS)
+	$(CC) $(OBJS) $(EUGENELIBFT) $(CFLAGS) -L$(MLX_BUILD) -lmlx42 $(GLFW_FLAGS) $(FRAMEWORKS) -o $(NAME)
 
 clean:
 	@rm -rf $(OBJ_DIR)
-	@if [ -d "$(LIBFT_DIR)" ]; then \
-		make -C $(LIBFT_DIR) clean; \
+	@if [ -d "$(EUGENELIBFT_DIR)" ]; then \
+		make -C $(EUGENELIBFT_DIR) clean; \
 	fi
 
 fclean: clean
 	@rm -f $(NAME)
 	@rm -rf $(MLX_BUILD)
-	@if [ -d "$(LIBFT_DIR)" ]; then \
-		make -C $(LIBFT_DIR) fclean; \
+	@if [ -d "$(EUGENELIBFT_DIR)" ]; then \
+		make -C $(EUGENELIBFT_DIR) fclean; \
 	fi
 	@rm -rf $(MLX_DIR)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re $(OBJ_DIR)
