@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
+/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 05:10:05 by christian         #+#    #+#             */
-/*   Updated: 2025/04/11 19:35:21 by christian        ###   ########.fr       */
+/*   Updated: 2025/04/11 21:15:49 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	load_textures(t_cub3d *c)
 	c->texture.south = mlx_load_png(c->texture.so_texture_path);
 	c->texture.east = mlx_load_png(c->texture.ea_texture_path);
 	c->texture.west = mlx_load_png(c->texture.we_texture_path);
-	if (!c->texture.north || !c->texture.south || 
-		!c->texture.east || !c->texture.west)
+	if (!c->texture.north || !c->texture.south
+		|| !c->texture.east || !c->texture.west)
 	{
 		ft_putstr_fd("Error: Failed to load textures\n", STDERR_FILENO);
 		clean_exit(c);
@@ -28,7 +28,7 @@ void	load_textures(t_cub3d *c)
 	c->texture.tex_height = c->texture.north->height;
 }
 
-static mlx_texture_t *select_wall_texture(t_cub3d *c)
+static mlx_texture_t	*select_wall_texture(t_cub3d *c)
 {
 	if (c->ray.side == 0)
 	{
@@ -46,10 +46,10 @@ static mlx_texture_t *select_wall_texture(t_cub3d *c)
 }
 
 // x coordinate where ray hits wall
-static double wall_xx(t_cub3d *c)
+static double	wall_xx(t_cub3d *c)
 {
 	double	wall_x;
-	
+
 	if (c->ray.side == 0)
 		wall_x = c->player.pos_y + c->ray.wall_dist * c->ray.dir_y;
 	else
@@ -59,23 +59,23 @@ static double wall_xx(t_cub3d *c)
 }
 
 // x coordinate of texture
-static int texture_x(t_cub3d *c, double wall_x, mlx_texture_t *texture)
+static int	texture_x(t_cub3d *c, double wall_x, mlx_texture_t *texture)
 {
 	int		tex_x;
-	
+
 	tex_x = (int)(wall_x * texture->width);
-	if ((c->ray.side == 0 && c->ray.dir_x > 0) || 
-		(c->ray.side == 1 && c->ray.dir_y < 0))
+	if ((c->ray.side == 0 && c->ray.dir_x > 0)
+		|| (c->ray.side == 1 && c->ray.dir_y < 0))
 		tex_x = texture->width - tex_x - 1;
 	return (tex_x);
 }
 
-void draw_textured_column(t_cub3d *c, int x)
+void	draw_textured_column(t_cub3d *c, int x)
 {
 	mlx_texture_t	*texture;
 	double			wall_x;
 	int				tex_x;
-	
+
 	texture = select_wall_texture(c);
 	wall_x = wall_xx(c);
 	tex_x = texture_x(c, wall_x, texture);

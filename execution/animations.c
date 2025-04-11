@@ -3,16 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   animations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
+/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:32:15 by candrese          #+#    #+#             */
-/*   Updated: 2025/04/11 19:38:03 by christian        ###   ########.fr       */
+/*   Updated: 2025/04/11 23:05:33 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	calculate_ray_direction(t_cub3d *c, int x, double *ray_dir_x, double *ray_dir_y)
+uint32_t	create_rgba(int r, int g, int b)
+{
+	return ((r << 24) | (g << 16) | (b << 8) | 255);
+}
+
+void	calculate_ray_direction(t_cub3d *c, int x,
+			double *ray_dir_x, double *ray_dir_y)
 {
 	double	camera_x;
 
@@ -21,14 +27,12 @@ void	calculate_ray_direction(t_cub3d *c, int x, double *ray_dir_x, double *ray_d
 	*ray_dir_y = c->player.dir_y + c->player.plane_y * camera_x;
 }
 
-
 void	calculate_wall_height(t_cub3d *c)
 {
 	c->ray.line_height = (int)(HEIGHT / c->ray.wall_dist);
 	c->ray.draw_start = -c->ray.line_height / 2 + HEIGHT / 2;
 	if (c->ray.draw_start < 0)
 		c->ray.draw_start = 0;
-	
 	c->ray.draw_end = c->ray.line_height / 2 + HEIGHT / 2;
 	if (c->ray.draw_end >= HEIGHT)
 		c->ray.draw_end = HEIGHT - 1;
@@ -92,7 +96,8 @@ void	calculate_wall_height(t_cub3d *c)
 // 		wall_y = c->player.pos_y + ray_dir_y * c->ray.wall_dist;
 
 // 		// ray from player position
-// 		draw_line(c, c->player.pos_x * square_size, c->player.pos_y * square_size,
+// 		draw_line(c, c->player.pos_x * square_size,
+//		c->player.pos_y * square_size,
 // 			wall_x * square_size, wall_y * square_size,
 // 			0x00FF00FF); // green for rays
 // 		x += WIDTH / 11;
@@ -110,7 +115,7 @@ void	calculate_wall_height(t_cub3d *c)
 // 	int		i;
 // 	int		j;
 // 	int		square_size;
-	
+//
 // 	square_size = HEIGHT / 12;
 // 	// map squares
 // 	i = 0;
@@ -121,20 +126,22 @@ void	calculate_wall_height(t_cub3d *c)
 // 		{
 // 			if (c->test_map[i][j] == '1')
 // 				draw_rectangle(c, j * square_size, i * square_size, 
-// 							square_size, square_size, 0x808080FF); // grey is walls
+// 					square_size, square_size, 0x808080FF); // grey is walls
 // 			else
 // 				draw_rectangle(c, j * square_size, i * square_size, 
-// 							square_size, square_size, 0xFFFFFFFF); // white is empty
+// 					square_size, square_size, 0xFFFFFFFF); // white is empty
 // 			j++;
 // 		}
 // 		i++;
 // 	}
 // 	// player
-// 	draw_rectangle(c, c->player.pos_x * square_size - 2, c->player.pos_y * square_size - 2, 
+// 	draw_rectangle(c, c->player.pos_x * square_size - 2,
+//	c->player.pos_y * square_size - 2, 
 // 				5, 5, 0xFF0000FF); // red for player
 // }
 
-// void	draw_rectangle(t_cub3d *c, int x, int y, int width, int height, uint32_t color)
+// void	draw_rectangle(t_cub3d *c, int x, int y,
+//	int width, int height, uint32_t color)
 // {
 // 	int	i;
 // 	int	j;

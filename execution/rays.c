@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
+/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 05:10:07 by candrese          #+#    #+#             */
-/*   Updated: 2025/03/31 05:25:01 by christian        ###   ########.fr       */
+/*   Updated: 2025/04/11 21:14:44 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	draw_3d_rays(t_cub3d *c)
 // 		mlx_put_pixel(c->img, x, y, color);
 // 		y++;
 // 	}
-	
+//	
 // 	// floor
 // 	while (y < HEIGHT)
 // 	{

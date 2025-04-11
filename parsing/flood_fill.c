@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 22:07:16 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/04/01 04:28:54 by candrese         ###   ########.fr       */
+/*   Updated: 2025/04/11 23:09:23 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,13 @@ static void	find_spawn(char **map_arr, size_t *x, size_t *y, t_player *player)
 			&& map_arr[*y][*x] != 'N' && map_arr[*y][*x] != 'S'
 			&& map_arr[*y][*x] != 'E' && map_arr[*y][*x] != 'W')
 			(*x)++;
-		
 		if (map_arr[*y][*x] == 'N' || map_arr[*y][*x] == 'S'
 				|| map_arr[*y][*x] == 'E' || map_arr[*y][*x] == 'W')
 		{
 			player->spawn_dir = map_arr[*y][*x];
 			player->pos_x = (double)*x + 0.5;
 			player->pos_y = (double)*y + 0.5;
-			return;
+			return ;
 		}
 		else if (map_arr[*y][*x] == '\0')
 			(*y)++;
@@ -41,10 +40,10 @@ char	**copy_array(char **map_arr)
 {
 	char	**copy;
 	int		i;
-	
+
 	i = 0;
 	while (map_arr[i])
-	i++;
+		i++;
 	copy = ft_calloc(i + 1, sizeof(char *));
 	i = 0;
 	while (map_arr[i])
@@ -95,7 +94,7 @@ static int	flood_fill(char **copy, size_t x, size_t y, size_t map_height)
 }
 
 // used to check if the map is surrounded by walls
-int flood_fill_check(char **map_arr, size_t map_height, t_player *player)
+int	flood_fill_check(char **map_arr, size_t map_height, t_player *player)
 {
 	char	**copy;
 	size_t	x;

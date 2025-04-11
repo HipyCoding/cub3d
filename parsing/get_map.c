@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jidrizi <jidrizi@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:52:54 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/03/30 21:48:21 by jidrizi          ###   ########.fr       */
+/*   Updated: 2025/04/11 22:26:31 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
+
+int	get_number_of_lines(char *map)
+{
+	int	number_of_lines;
+
+	number_of_lines = 0;
+	while (*map)
+	{
+		if (*map == '\n')
+			number_of_lines++;
+		map++;
+	}
+	return (number_of_lines + 1);
+}
 
 static char	*fill_map_str(char *current_line, char *map_file, int fd)
 {
@@ -48,4 +62,3 @@ char	*get_map_whole(char *arg1)
 		return (close(fd), error_msg("Something wrong with map file\n"), NULL);
 	return (close(fd), map);
 }
-

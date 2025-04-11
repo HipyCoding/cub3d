@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   misc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
+/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 18:21:11 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/04/11 19:32:44 by christian        ###   ########.fr       */
+/*   Updated: 2025/04/11 22:27:16 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	error_msg(char *msg)
 	write(STDERR_FILENO, msg, ft_strlen(msg));
 }
 
-int break_or_error(t_elements *elements, int purpose)
+int	break_or_error(t_elements *elements, int purpose)
 {
 	if (purpose == BREAK)
 	{
@@ -45,33 +45,19 @@ int	check_map_characters(char *map)
 	i = 0;
 	spawn = 0;
 	while (map[i] && (map[i] == '1' || map[i] == '0'
-		|| map[i] == 'N' || map[i] == 'S' || map[i] == 'E' || map[i] ==  'W'
-		|| map[i] == ' ' || map[i] == '\t' || map[i] == '\n'))
+			|| map[i] == 'N' || map[i] == 'S' || map[i] == 'E' || map[i] == 'W'
+			|| map[i] == ' ' || map[i] == '\t' || map[i] == '\n'))
 	{
-		if (map[i] == 'N' || map[i] == 'S' || map[i] == 'E' || map[i] ==  'W')
+		if (map[i] == 'N' || map[i] == 'S' || map[i] == 'E' || map[i] == 'W')
 			spawn++;
 		i++;
 	}
 	if (map[i] != '\0' || spawn != 1)
 		return (error_msg("Map content is not correct"), EXIT_FAILURE);
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
-int	get_number_of_lines(char *map)
-{
-	int number_of_lines;
-
-	number_of_lines = 0;
-	while (*map)
-	{
-		if (*map == '\n')
-			number_of_lines++;
-		map++;
-	}
-	return (number_of_lines + 1);
-}
-
-void	spaces_2_X(char *str)
+void	spaces_2_x(char *str)
 {
 	while (*str)
 	{
@@ -103,7 +89,7 @@ void	make_map_square(char **map_arr)
 		ft_memcpy(new_str, map_arr[i], ft_strlen(map_arr[i]));
 		ft_free_and_null((void **)&map_arr[i]);
 		map_arr[i] = new_str;
-		spaces_2_X(map_arr[i]);
+		spaces_2_x(map_arr[i]);
 		i++;
 	}
 }

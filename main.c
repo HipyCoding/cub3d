@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
+/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:19:46 by candrese          #+#    #+#             */
-/*   Updated: 2025/04/11 19:31:26 by christian        ###   ########.fr       */
+/*   Updated: 2025/04/11 22:24:34 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	init_player(t_player *player)
 {
 	player->dir_x = 0.0;
 	player->dir_y = 0.0;
-	player->plane_x =  0.0;
+	player->plane_x = 0.0;
 	player->plane_y = 0.0;
 	player->speed = 0.03;
 	player->r_speed = 0.05;
@@ -51,6 +51,7 @@ void	init_player(t_player *player)
 void	init_map(t_cub3d *c)
 {
 	int	i;
+	int	row_len;
 
 	c->map_height = 0;
 	while (c->test_map[c->map_height])
@@ -59,7 +60,7 @@ void	init_map(t_cub3d *c)
 	i = 0;
 	while (i < c->map_height)
 	{
-		int row_len = ft_strlen(c->test_map[i]);
+		row_len = ft_strlen(c->test_map[i]);
 		if (row_len > c->map_width)
 			c->map_width = row_len;
 		i++;

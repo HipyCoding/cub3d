@@ -6,36 +6,38 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:15:24 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/04/01 09:16:41 by candrese         ###   ########.fr       */
+/*   Updated: 2025/04/11 21:17:53 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "../cub3d.h"
 
-void assign_texture_path(int instance, t_texture *texture, char *path)
+void	assign_texture_path(int instance, t_texture *texture, char *path)
 {
-if (instance == NO)
-texture->no_texture_path = path;
-else if (instance == SO)
-texture->so_texture_path = path;
-else if (instance == WE)
-texture->we_texture_path = path;
-else if (instance == EA)
-texture->ea_texture_path = path;
+	if (instance == NO)
+		texture->no_texture_path = path;
+	else if (instance == SO)
+		texture->so_texture_path = path;
+	else if (instance == WE)
+		texture->we_texture_path = path;
+	else if (instance == EA)
+		texture->ea_texture_path = path;
 }
 
-static void handle_textures(char **map, t_texture *texture, int instance)
+static void	handle_textures(char **map, t_texture *texture, int instance)
 {
 	char	*path;
 	int		i;
 	int		fd;
 
 	i = 0;
-	while (map[0][i] && map[0][i] != ' ' && map[0][i] != '\t' && map[0][i] != '\n')
+	while (map[0][i] && map[0][i] != ' ' && map[0][i] != '\t'
+			&& map[0][i] != '\n')
 		i++;
 	path = ft_substr(map[0], 0, i);
-	if (ft_strlen(path) < 4 || ft_strncmp(&path[ft_strlen(path) - 4], ".png", 4) != 0)
+	if (ft_strlen(path) < 4 || ft_strncmp(&path[ft_strlen(path) - 4],
+			".png", 4) != 0)
 	{
 		map[0] = NULL;
 		return (ft_free_and_null((void **)&path), (void)0);
@@ -82,17 +84,17 @@ static void	handle_element(char **map, t_elements *elements, int instance,
 			t_texture *texture)
 {
 	if (instance == NO)
-	elements->no_count++;
+		elements->no_count++;
 	else if (instance == SO)
-	elements->so_count++;
+		elements->so_count++;
 	else if (instance == WE)
-	elements->we_count++;
+		elements->we_count++;
 	else if (instance == EA)
-	elements->ea_count++;
+		elements->ea_count++;
 	else if (instance == F)
-	elements->f_count++;
+		elements->f_count++;
 	else if (instance == C)
-	elements->c_count++;
+		elements->c_count++;
 	if (instance == F || instance == C)
 		return (map[0]++, handle_color(map, texture, instance), (void)0);
 	else
@@ -101,7 +103,7 @@ static void	handle_element(char **map, t_elements *elements, int instance,
 		|| map[0][0] == '\n'))
 		map[0]++;
 	handle_textures(map, texture, instance);
-	}
+}
 
 int	check_elements(char **map, t_elements *elements, t_texture *texture)
 {
@@ -121,7 +123,8 @@ int	check_elements(char **map, t_elements *elements, t_texture *texture)
 			handle_element(map, elements, C, texture);
 		if (break_or_error(elements, BREAK) == 1 && map[0])
 			break ;
-		if (map[0] && map[0][0]!= ' ' && map[0][0]!= '\t' && map[0][0]!= '\n')
+		if (map[0] && map[0][0] != ' ' && map[0][0] != '\t'
+			&& map[0][0] != '\n')
 			map[0] = NULL;
 		if (map[0])
 			map[0] += 1;

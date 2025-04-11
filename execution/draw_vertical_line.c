@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_vertical_line.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
+/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 05:02:00 by christian         #+#    #+#             */
-/*   Updated: 2025/04/11 19:36:17 by christian        ###   ########.fr       */
+/*   Updated: 2025/04/11 22:31:42 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void draw_ceiling(t_cub3d *c, int x, int draw_start)
+static void	draw_ceiling(t_cub3d *c, int x, int draw_start)
 {
 	int	y;
 
@@ -24,7 +24,7 @@ static void draw_ceiling(t_cub3d *c, int x, int draw_start)
 	}
 }
 
-static void draw_floor(t_cub3d *c, int x, int draw_end)
+static void	draw_floor(t_cub3d *c, int x, int draw_end)
 {
 	int	y;
 
@@ -37,20 +37,19 @@ static void draw_floor(t_cub3d *c, int x, int draw_end)
 }
 
 // coordinate specific texture color
-static uint32_t get_texture_color(mlx_texture_t *texture, int tex_x, int tex_y)
+static uint32_t	get_texture_color(mlx_texture_t *texture, int tex_x, int tex_y)
 {
-	uint8_t *pixel;
-	uint32_t color;
+	uint8_t		*pixel;
+	uint32_t	color;
 
 	pixel = &texture->pixels[(tex_y * texture->width + tex_x) * 4];
 	color = (pixel[0] << 24 | pixel[1] << 16 | pixel[2] << 8 | pixel[3]);
-	
 	return (color);
 }
 
 // vertical collumn
-static void draw_textured_wall(t_cub3d *c, int x, mlx_texture_t *texture, 
-						int tex_x, int draw_start, int draw_end, int line_height)
+static void	draw_textured_wall(t_cub3d *c, int x,
+				mlx_texture_t *texture, int tex_x)
 {
 	int			y;
 	int			tex_y;
@@ -58,10 +57,10 @@ static void draw_textured_wall(t_cub3d *c, int x, mlx_texture_t *texture,
 	double		tex_pos;
 	uint32_t	color;
 
-	step = (double)texture->height / line_height;
-	tex_pos = (draw_start - HEIGHT / 2 + line_height / 2) * step;
-	y = draw_start;
-	while (y < draw_end)
+	step = (double)texture->height / c->ray.line_height;
+	tex_pos = (c->ray.draw_start - HEIGHT / 2 + c->ray.line_height / 2) * step;
+	y = c->ray.draw_start;
+	while (y < c->ray.draw_end)
 	{
 		tex_y = (int)tex_pos % texture->height;
 		color = get_texture_color(texture, tex_x, tex_y);
@@ -71,10 +70,9 @@ static void draw_textured_wall(t_cub3d *c, int x, mlx_texture_t *texture,
 	}
 }
 
-void draw_vertical_line(t_cub3d *c, int x, mlx_texture_t *texture, int tex_x)
+void	draw_vertical_line(t_cub3d *c, int x, mlx_texture_t *texture, int tex_x)
 {
 	draw_ceiling(c, x, c->ray.draw_start);
-	draw_textured_wall(c, x, texture, tex_x, c->ray.draw_start, 
-					c->ray.draw_end, c->ray.line_height);
+	draw_textured_wall(c, x, texture, tex_x);
 	draw_floor(c, x, c->ray.draw_end);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: christian <christian@student.42.fr>        +#+  +:+       +#+        */
+/*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 01:57:33 by candrese          #+#    #+#             */
-/*   Updated: 2025/04/11 19:37:49 by christian        ###   ########.fr       */
+/*   Updated: 2025/04/11 21:08:10 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,3 @@ void	clean_exit(t_cub3d *c)
 	clean_textures(c);
 	exit(EXIT_SUCCESS);
 }
-

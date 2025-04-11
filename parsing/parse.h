@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 15:08:25 by jidrizi           #+#    #+#             */
-/*   Updated: 2025/04/01 06:36:27 by candrese         ###   ########.fr       */
+/*   Updated: 2025/04/11 23:05:05 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 
 //MACROS
 
-#define BREAK -1
-#define ERROR -2
+# define BREAK -1
+# define ERROR -2
 
 //TYPES
 
@@ -40,7 +40,7 @@ typedef struct s_elements
 	int		ea_count;
 	int		f_count;
 	int		c_count;
-}t_elements;
+}	t_elements;
 
 enum e_enum_elements
 {
@@ -69,5 +69,6 @@ void	make_map_square(char **map_arr);
 int		flood_fill_check(char **map_arr, size_t map_height, t_player *player);
 char	**copy_array(char **map_arr);
 void	free_array_copy(char **map_arr);
+int		get_number_of_lines(char *map);
 
 #endif
