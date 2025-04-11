@@ -6,7 +6,7 @@
 /*   By: candrese <candrese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 06:21:41 by candrese          #+#    #+#             */
-/*   Updated: 2025/04/11 23:03:22 by candrese         ###   ########.fr       */
+/*   Updated: 2025/04/11 23:15:17 by candrese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	handle_color(char **map, t_texture *texture, int instance)
 		return ;
 	if (!check_color_format(map))
 		return ;
-	color = create_rgba_color(r, g, b);
+	color = create_rgba(r, g, b);
 	if (!store_color_value(texture, color, instance))
 		map[0] = NULL;
 }
